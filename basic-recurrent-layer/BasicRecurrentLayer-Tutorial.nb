@@ -1,0 +1,132 @@
+Notebook[{
+Cell["BasicRecurrentLayer: A Small Tutorial", "Title"],
+Cell["From the recurrence equation to a trained sequence classifier", "Subtitle"],
+Cell["Computational Classnotes", "Author"],
+
+Cell[CellGroupData[{
+Cell["1. Mathematical formulation", "Section"],
+Cell[TextData[{
+ "A basic (Elman) recurrent layer reads a sequence of input vectors ",
+ Cell[BoxData[FormBox[RowBox[{SubscriptBox["x", "1"], ",", "\[Ellipsis]", ",", SubscriptBox["x", "T"]}], TraditionalForm]]],
+ ", with each ",
+ Cell[BoxData[FormBox[RowBox[{SubscriptBox["x", "t"], "\[Element]", SuperscriptBox["\[DoubleStruckCapitalR]", "m"]}], TraditionalForm]]],
+ ", and carries a hidden state ",
+ Cell[BoxData[FormBox[RowBox[{SubscriptBox["h", "t"], "\[Element]", SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]]],
+ " forward in time. At every step the new state depends on the current input and the previous state:"
+}], "Text"],
+Cell[BoxData[FormBox[RowBox[{
+ SubscriptBox["h", "t"], "=", RowBox[{"\[Sigma]", "(", RowBox[{
+  RowBox[{"W", " ", SubscriptBox["x", "t"]}], "+",
+  RowBox[{"U", " ", SubscriptBox["h", RowBox[{"t", "-", "1"}]]}], "+", "b"}], ")"}],
+ ",", "   ", RowBox[{"t", "=", RowBox[{"1", ",", "\[Ellipsis]", ",", "T"}]}],
+ ",", "   ", RowBox[{SubscriptBox["h", "0"], "=", "0"}]}], TraditionalForm]], "DisplayFormula"],
+Cell["The ingredients:", "Text"],
+Cell[TextData[{
+ Cell[BoxData[FormBox[RowBox[{"W", "\[Element]", SuperscriptBox["\[DoubleStruckCapitalR]", RowBox[{"n", "\[Times]", "m"}]]}], TraditionalForm]]],
+ "  input weights (array \"InputWeights\")"
+}], "Item"],
+Cell[TextData[{
+ Cell[BoxData[FormBox[RowBox[{"U", "\[Element]", SuperscriptBox["\[DoubleStruckCapitalR]", RowBox[{"n", "\[Times]", "n"}]]}], TraditionalForm]]],
+ "  state (recurrent) weights (array \"StateWeights\")"
+}], "Item"],
+Cell[TextData[{
+ Cell[BoxData[FormBox[RowBox[{"b", "\[Element]", SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]]],
+ "  biases (array \"Biases\")"
+}], "Item"],
+Cell[TextData[{
+ Cell[BoxData[FormBox["\[Sigma]", TraditionalForm]]],
+ "  elementwise activation: ",
+ Cell[BoxData[FormBox["tanh", TraditionalForm]]],
+ " by default, or ReLU ",
+ Cell[BoxData[FormBox[RowBox[{"max", "(", RowBox[{"0", ",", "z"}], ")"}], TraditionalForm]]]
+}], "Item"],
+Cell[TextData[{
+ "The layer outputs the whole state sequence ",
+ Cell[BoxData[FormBox[RowBox[{"(", RowBox[{SubscriptBox["h", "1"], ",", "\[Ellipsis]", ",", SubscriptBox["h", "T"]}], ")"}], TraditionalForm]]],
+ ", a ",
+ Cell[BoxData[FormBox[RowBox[{"T", "\[Times]", "n"}], TraditionalForm]]],
+ " matrix. The same W, U and b are reused at every step, so the number of parameters does not depend on the sequence length T:"
+}], "Text"],
+Cell[BoxData[FormBox[RowBox[{
+ "#", "params", "=", RowBox[{
+  RowBox[{"n", " ", "m"}], "+", SuperscriptBox["n", "2"], "+", "n"}], "=",
+ RowBox[{"n", RowBox[{"(", RowBox[{"m", "+", "n", "+", "1"}], ")"}]}]}], TraditionalForm]], "DisplayFormula"],
+Cell[TextData[{
+ "Unrolling the recurrence shows that ",
+ Cell[BoxData[FormBox[SubscriptBox["h", "t"], TraditionalForm]]],
+ " is a nested function of every earlier input, ",
+ Cell[BoxData[FormBox[RowBox[{SubscriptBox["h", "3"], "=", RowBox[{"\[Sigma]", "(", RowBox[{
+  RowBox[{"W", " ", SubscriptBox["x", "3"]}], "+",
+  RowBox[{"U", " ", RowBox[{"\[Sigma]", "(", RowBox[{
+   RowBox[{"W", " ", SubscriptBox["x", "2"]}], "+",
+   RowBox[{"U", " ", RowBox[{"\[Sigma]", "(", RowBox[{RowBox[{"W", " ", SubscriptBox["x", "1"]}], "+", "b"}], ")"}]}], "+", "b"}], ")"}]}], "+", "b"}], ")"}]}], TraditionalForm]]],
+ ", which is what gives the layer memory. Training differentiates through this unrolled chain (backpropagation through time). Repeated multiplication by U is also why plain recurrent layers struggle with long-range dependencies (vanishing or exploding gradients); LongShortTermMemoryLayer and GatedRecurrentLayer were designed to address this."
+}], "Text"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["2. Creating and inspecting the layer", "Section"],
+Cell["A layer with state size n = 3 that reads sequences of any length whose elements are vectors of size m = 2:", "Text"],
+Cell["SeedRandom[1];\nlay = NetInitialize[BasicRecurrentLayer[3, \"Input\" -> {\"Varying\", 2}]]", "Input"],
+Cell["Apply it to a sequence of T = 3 vectors. The output is a 3 \[Times] 3 matrix: one state vector per time step.", "Text"],
+Cell["xs = {{1., 2.}, {0.5, -1.}, {-2., 0.}};\nout = lay[xs]\nDimensions[out]", "Input"],
+Cell["Extract the learned arrays and check their shapes against the formulation above:", "Text"],
+Cell["w = Normal@NetExtract[lay, \"InputWeights\"];\nu = Normal@NetExtract[lay, \"StateWeights\"];\nb = Normal@NetExtract[lay, \"Biases\"];\nDimensions /@ <|\"W\" -> w, \"U\" -> u, \"b\" -> b|>", "Input"],
+Cell["Parameter count n(m + n + 1) = 3 \[Times] 6 = 18:", "Text"],
+Cell["Information[lay, \"ArraysTotalElementCount\"]", "Input"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["3. Verifying the recurrence by hand", "Section"],
+Cell[TextData[{
+ "The recurrence is a left fold over the sequence, starting from ",
+ Cell[BoxData[FormBox[RowBox[{SubscriptBox["h", "0"], "=", "0"}], TraditionalForm]]],
+ ". FoldList returns every intermediate state; Rest drops ",
+ Cell[BoxData[FormBox[SubscriptBox["h", "0"], TraditionalForm]]],
+ "."
+}], "Text"],
+Cell["step[h_, x_] := Tanh[w . x + u . h + b]\nmanual = Rest@FoldList[step, ConstantArray[0., 3], xs]", "Input"],
+Cell[TextData[{"The difference from the layer's output is at the level of single-precision rounding (about ", Cell[BoxData[FormBox[SuperscriptBox["10", "-8"], TraditionalForm]]], "):"}], "Text"],
+Cell["Max@Abs[out - manual]", "Input"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["4. Carrying the state across calls", "Section"],
+Cell["Each ordinary call starts again from the zero state. NetStateObject keeps the final state between calls, so feeding the sequence one step at a time gives the same result as feeding it all at once:", "Text"],
+Cell["stateful = NetStateObject[lay];\nstepwise = Flatten[Table[stateful[{x}], {x, xs}], 1];\nMax@Abs[stepwise - out]", "Input"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["5. Options", "Section"],
+Cell["\"Activation\" accepts \"Tanh\" (the default) or \"ReLU\". Other functions are rejected with a message.", "Item"],
+Cell["\"Dropout\" applies dropout regularization during training (for example \"Dropout\" -> 0.2).", "Item"],
+Cell["BasicRecurrentLayer[3, \"Input\" -> {\"Varying\", 2}, \"Activation\" -> \"ReLU\", \"Dropout\" -> 0.2]", "Input"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["6. Example: is the sequence going up or down?", "Section"],
+Cell["Generate random scalar sequences of length 3 to 8. A sequence is labeled \"Up\" if its last value is larger than its first. The network has to remember the first element until the end, so it needs the recurrent state.", "Text"],
+Cell["SeedRandom[42];\ngen[k_] := Table[\n   With[{s = RandomReal[{-1, 1}, RandomInteger[{3, 8}]]},\n    List /@ s -> If[Last[s] > First[s], \"Up\", \"Down\"]],\n   k];\ntrain = gen[2000]; test = gen[200];\nRandomSample[train, 3]", "Input"],
+Cell[TextData[{"The recurrent layer reads the sequence; SequenceLastLayer keeps only the final state ", Cell[BoxData[FormBox[SubscriptBox["h", "T"], TraditionalForm]]], ", which a linear layer and softmax turn into class probabilities:"}], "Text"],
+Cell["net = NetChain[{\n   BasicRecurrentLayer[16],\n   SequenceLastLayer[],\n   LinearLayer[2],\n   SoftmaxLayer[]},\n  \"Input\" -> {\"Varying\", 1},\n  \"Output\" -> NetDecoder[{\"Class\", {\"Down\", \"Up\"}}]]", "Input"],
+Cell["trained = NetTrain[net, train, MaxTrainingRounds -> 15]", "Input"],
+Cell["Accuracy on held-out sequences (around 0.85 after 15 rounds in a test run; more rounds help):", "Text"],
+Cell["NetMeasurements[trained, test, \"Accuracy\"]", "Input"],
+Cell["Try it on new sequences:", "Text"],
+Cell["trained[{{{-0.9}, {0.3}, {0.1}, {0.7}}, {{0.8}, {-0.2}, {0.5}, {-0.6}}}]", "Input"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["7. Exercises", "Section"],
+Cell["Switch the activation to \"ReLU\" and redo the hand check of section 3 using Ramp in place of Tanh.", "Item"],
+Cell["Train the classifier on sequences of length 3 to 8, then test it on sequences of length 30. How does accuracy change, and why?", "Item"],
+Cell["Replace BasicRecurrentLayer[16] with LongShortTermMemoryLayer[16] and compare accuracy on long sequences.", "Item"],
+Cell["Show that the parameter count stays 18 whatever sequence length you feed the layer from section 2.", "Item"]
+}, Open]],
+
+Cell["\[Copyright] Computational Classnotes \[CenterDot] CC BY-NC-SA 4.0", "Text", TextAlignment -> Center, FontSlant -> "Italic", FontColor -> GrayLevel[0.4]]
+},
+CellContext -> Notebook,
+PrintingOptions -> {"PaperSize" -> {595.28, 841.89}, "PrintingMargins" -> {{54, 54}, {60, 60}}},
+WindowTitle -> "BasicRecurrentLayer Tutorial"
+]

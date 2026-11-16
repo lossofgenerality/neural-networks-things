@@ -1,0 +1,219 @@
+Notebook[{
+Cell["BasicRecurrentLayer from Scratch", "Title"],
+Cell["Building a recurrent layer with ordinary math functions, and checking it against the built-in one", "Subtitle"],
+Cell["Computational Classnotes", "Author"],
+
+Cell[CellGroupData[{
+Cell["1. Mathematical formulation", "Section"],
+Cell[TextData[{
+ "A basic (Elman) recurrent layer reads a sequence of input vectors ",
+ Cell[BoxData[FormBox[RowBox[{SubscriptBox["x", "1"], ",", "\[Ellipsis]", ",", SubscriptBox["x", "T"]}], TraditionalForm]]],
+ ", with ",
+ Cell[BoxData[FormBox[RowBox[{SubscriptBox["x", "t"], "\[Element]", SuperscriptBox["\[DoubleStruckCapitalR]", "m"]}], TraditionalForm]]],
+ ", and updates a hidden state ",
+ Cell[BoxData[FormBox[RowBox[{SubscriptBox["h", "t"], "\[Element]", SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]]],
+ " one step at a time:"
+}], "Text"],
+Cell[BoxData[FormBox[RowBox[{
+ SubscriptBox["h", "t"], "=", RowBox[{"\[Sigma]", "(", RowBox[{
+  RowBox[{"W", " ", SubscriptBox["x", "t"]}], "+",
+  RowBox[{"U", " ", SubscriptBox["h", RowBox[{"t", "-", "1"}]]}], "+", "b"}], ")"}],
+ ",", "   ", RowBox[{"t", "=", RowBox[{"1", ",", "\[Ellipsis]", ",", "T"}]}],
+ ",", "   ", RowBox[{SubscriptBox["h", "0"], "=", "0"}]}], TraditionalForm]], "DisplayFormula"],
+Cell["Written out in full, with every matrix and vector shown:", "Text"],
+Cell[BoxData[FormBox[RowBox[{
+ RowBox[{"(", GridBox[{
+   {SubscriptBox["h", RowBox[{"t", ",", "1"}]]},
+   {SubscriptBox["h", RowBox[{"t", ",", "2"}]]},
+   {"\[VerticalEllipsis]"},
+   {SubscriptBox["h", RowBox[{"t", ",", "n"}]]}}, RowSpacings -> 1.2], ")"}],
+ "=",
+ RowBox[{"\[Sigma]", RowBox[{"(", RowBox[{
+  RowBox[{
+   RowBox[{"(", GridBox[{
+     {SubscriptBox["w", "11"], SubscriptBox["w", "12"], "\[CenterEllipsis]", SubscriptBox["w", RowBox[{"1", "m"}]]},
+     {SubscriptBox["w", "21"], SubscriptBox["w", "22"], "\[CenterEllipsis]", SubscriptBox["w", RowBox[{"2", "m"}]]},
+     {"\[VerticalEllipsis]", "\[VerticalEllipsis]", "\[DescendingEllipsis]", "\[VerticalEllipsis]"},
+     {SubscriptBox["w", RowBox[{"n", "1"}]], SubscriptBox["w", RowBox[{"n", "2"}]], "\[CenterEllipsis]", SubscriptBox["w", RowBox[{"n", "m"}]]}}, ColumnSpacings -> 1, RowSpacings -> 1.2], ")"}],
+   RowBox[{"(", GridBox[{
+     {SubscriptBox["x", RowBox[{"t", ",", "1"}]]},
+     {SubscriptBox["x", RowBox[{"t", ",", "2"}]]},
+     {"\[VerticalEllipsis]"},
+     {SubscriptBox["x", RowBox[{"t", ",", "m"}]]}}, RowSpacings -> 1.2], ")"}]}],
+  "+",
+  RowBox[{
+   RowBox[{"(", GridBox[{
+     {SubscriptBox["u", "11"], SubscriptBox["u", "12"], "\[CenterEllipsis]", SubscriptBox["u", RowBox[{"1", "n"}]]},
+     {SubscriptBox["u", "21"], SubscriptBox["u", "22"], "\[CenterEllipsis]", SubscriptBox["u", RowBox[{"2", "n"}]]},
+     {"\[VerticalEllipsis]", "\[VerticalEllipsis]", "\[DescendingEllipsis]", "\[VerticalEllipsis]"},
+     {SubscriptBox["u", RowBox[{"n", "1"}]], SubscriptBox["u", RowBox[{"n", "2"}]], "\[CenterEllipsis]", SubscriptBox["u", RowBox[{"n", "n"}]]}}, ColumnSpacings -> 1, RowSpacings -> 1.2], ")"}],
+   RowBox[{"(", GridBox[{
+     {SubscriptBox["h", RowBox[{RowBox[{"t", "-", "1"}], ",", "1"}]]},
+     {SubscriptBox["h", RowBox[{RowBox[{"t", "-", "1"}], ",", "2"}]]},
+     {"\[VerticalEllipsis]"},
+     {SubscriptBox["h", RowBox[{RowBox[{"t", "-", "1"}], ",", "n"}]]}}, RowSpacings -> 1.2], ")"}]}],
+  "+",
+  RowBox[{"(", GridBox[{
+    {SubscriptBox["b", "1"]},
+    {SubscriptBox["b", "2"]},
+    {"\[VerticalEllipsis]"},
+    {SubscriptBox["b", "n"]}}, RowSpacings -> 1.2], ")"}]}], ")"}]}]}], TraditionalForm]], "DisplayFormula"],
+Cell[TextData[{
+ "Row ",
+ Cell[BoxData[FormBox["i", TraditionalForm]]],
+ " of this equation, written as sums:"
+}], "Text"],
+Cell[BoxData[FormBox[RowBox[{
+ SubscriptBox["h", RowBox[{"t", ",", "i"}]], "=",
+ RowBox[{"\[Sigma]", RowBox[{"(", RowBox[{
+  RowBox[{UnderoverscriptBox["\[Sum]", RowBox[{"j", "=", "1"}], "m"], RowBox[{SubscriptBox["w", "ij"], SubscriptBox["x", RowBox[{"t", ",", "j"}]]}]}],
+  "+",
+  RowBox[{UnderoverscriptBox["\[Sum]", RowBox[{"k", "=", "1"}], "n"], RowBox[{SubscriptBox["u", "ik"], SubscriptBox["h", RowBox[{RowBox[{"t", "-", "1"}], ",", "k"}]]}]}],
+  "+", SubscriptBox["b", "i"]}], ")"}]}],
+ ",", "   ", RowBox[{"i", "=", RowBox[{"1", ",", "\[Ellipsis]", ",", "n"}]}]}], TraditionalForm]], "DisplayFormula"],
+Cell["where:", "Text"],
+Cell[TextData[{
+ Cell[BoxData[FormBox[RowBox[{"W", "\[Element]", SuperscriptBox["\[DoubleStruckCapitalR]", RowBox[{"n", "\[Times]", "m"}]]}], TraditionalForm]]],
+ "  input weights"
+}], "Item"],
+Cell[TextData[{
+ Cell[BoxData[FormBox[RowBox[{"U", "\[Element]", SuperscriptBox["\[DoubleStruckCapitalR]", RowBox[{"n", "\[Times]", "n"}]]}], TraditionalForm]]],
+ "  state (recurrent) weights"
+}], "Item"],
+Cell[TextData[{
+ Cell[BoxData[FormBox[RowBox[{"b", "\[Element]", SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]]],
+ "  biases"
+}], "Item"],
+Cell[TextData[{
+ Cell[BoxData[FormBox["\[Sigma]", TraditionalForm]]],
+ "  activation applied elementwise: tanh (the default) or ReLU, ",
+ Cell[BoxData[FormBox[RowBox[{"max", "(", RowBox[{"0", ",", "z"}], ")"}], TraditionalForm]]]
+}], "Item"],
+Cell[TextData[{
+ "The layer returns every state, ",
+ Cell[BoxData[FormBox[RowBox[{"(", RowBox[{SubscriptBox["h", "1"], ",", "\[Ellipsis]", ",", SubscriptBox["h", "T"]}], ")"}], TraditionalForm]]],
+ ", which is a T \[Times] n matrix. The same W, U and b are used at every step, so the layer has n(m + n + 1) parameters whatever the sequence length."
+}], "Text"],
+Cell["Everything below uses only Dot, Plus, Tanh, Ramp, FoldList and other ordinary functions. The built-in neural-net framework appears only in section 6, to check our results.", "Text"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["2. One time step", "Section"],
+Cell["One step is the formula above, written directly. The parameters {W, U, b} and the activation are fixed first; the result is a function of the previous state h and the current input x:", "Text"],
+Cell["rnnStep[{W_, U_, b_}, act_][h_, x_] := act[W . x + U . h + b]", "Input"],
+Cell["Tanh and Ramp (ReLU) are Listable, so they act elementwise on vectors automatically:", "Text"],
+Cell["Tanh[{-1., 0., 2.}]\nRamp[{-1., 0., 2.}]", "Input"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["3. The whole layer", "Section"],
+Cell[TextData[{
+ "Running the recurrence over a sequence is a left fold: start from ",
+ Cell[BoxData[FormBox[RowBox[{SubscriptBox["h", "0"], "=", "0"}], TraditionalForm]]],
+ ", combine it with ",
+ Cell[BoxData[FormBox[SubscriptBox["x", "1"], TraditionalForm]]],
+ " to get ",
+ Cell[BoxData[FormBox[SubscriptBox["h", "1"], TraditionalForm]]],
+ ", and so on. FoldList keeps every intermediate state, and Rest drops ",
+ Cell[BoxData[FormBox[SubscriptBox["h", "0"], TraditionalForm]]],
+ ":"
+}], "Text"],
+Cell["rnnLayer[params : {W_, U_, b_}, act_ : Tanh][xs_] :=\n Rest@FoldList[rnnStep[params, act], ConstantArray[0, Length[b]], xs]", "Input"],
+Cell["The same thing as an explicit loop, closer to how you might write it in other languages:", "Text"],
+Cell["rnnLoop[{W_, U_, b_}, act_ : Tanh][xs_] :=\n Module[{h = ConstantArray[0., Length[b]], out = {}},\n  Do[\n   h = act[W . x + U . h + b];\n   AppendTo[out, h],\n   {x, xs}];\n  out]", "Input"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["4. Initializing the parameters", "Section"],
+Cell["A common choice is Glorot (Xavier) uniform for the weight matrices and zeros for the biases:", "Text"],
+Cell["init[n_, m_] := {\n  RandomReal[{-1, 1} Sqrt[6/(n + m)], {n, m}],  (* W *)\n  RandomReal[{-1, 1} Sqrt[6/(2 n)], {n, n}],  (* U *)\n  ConstantArray[0., n]}                       (* b *)", "Input"],
+Cell["Create a layer with n = 3 and m = 2, then run it on a sequence of length T = 3:", "Text"],
+Cell["SeedRandom[7];\nparams = init[3, 2];\nxs = {{1., 2.}, {0.5, -1.}, {-2., 0.}};\nrnnLayer[params][xs] // MatrixForm", "Input"],
+Cell["The loop version gives the same answer:", "Text"],
+Cell["rnnLayer[params][xs] == rnnLoop[params][xs]", "Input"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["5. Looking at the formula symbolically", "Section"],
+Cell["Because the implementation uses only ordinary math, it works on symbols too. With scalar weights (n = m = 1) you can see the nesting that gives the layer its memory:", "Text"],
+Cell["rnnLayer[{{{w}}, {{u}}, {b0}}][{{x1}, {x2}, {x3}}] // Column", "Input"],
+Cell["The state at step 3 contains x1 three Tanh calls deep. Training differentiates through this chain (backpropagation through time). Repeated multiplication by U is why plain recurrent layers have trouble with long-range dependencies: gradients vanish or explode.", "Text"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["6. Checking against the built-in BasicRecurrentLayer", "Section"],
+Cell["Initialize a built-in layer, take out its weights, and run them through our implementation:", "Text"],
+Cell["SeedRandom[1];\nlay = NetInitialize[BasicRecurrentLayer[3, \"Input\" -> {\"Varying\", 2}]];\np = Normal /@ {\n    NetExtract[lay, \"InputWeights\"],\n    NetExtract[lay, \"StateWeights\"],\n    NetExtract[lay, \"Biases\"]};\nMax@Abs[rnnLayer[p][xs] - lay[xs]]", "Input"],
+Cell[TextData[{"The difference is about ", Cell[BoxData[FormBox[SuperscriptBox["10", "-8"], TraditionalForm]]], ": single-precision rounding in the built-in layer. Now the ReLU version, with our weights loaded into the built-in layer:"}], "Text"],
+Cell["layReLU = NetReplacePart[\n   BasicRecurrentLayer[3, \"Input\" -> {\"Varying\", 2}, \"Activation\" -> \"ReLU\"],\n   {\"InputWeights\" -> p[[1]], \"StateWeights\" -> p[[2]], \"Biases\" -> p[[3]]}];\nMax@Abs[rnnLayer[p, Ramp][xs] - layReLU[xs]]", "Input"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["7. Gradients: backpropagation through time", "Section"],
+Cell[TextData[{
+ "To train the layer we need the derivative of a loss L with respect to W, U and b. Write ",
+ Cell[BoxData[FormBox[RowBox[{SubscriptBox["g", "t"], "=", RowBox[{"\[PartialD]", "L", "/", RowBox[{"\[PartialD]", SubscriptBox["h", "t"]}]}]}], TraditionalForm]]],
+ ". Going backwards from t = T, and using ",
+ Cell[BoxData[FormBox[RowBox[{SuperscriptBox["tanh", "\[Prime]"], "=", RowBox[{"1", "-", SuperscriptBox["tanh", "2"]}]}], TraditionalForm]]],
+ ":"
+}], "Text"],
+Cell[BoxData[FormBox[RowBox[{
+ SubscriptBox["\[Delta]", "t"], "=", RowBox[{SubscriptBox["g", "t"], "\[CircleDot]", RowBox[{"(", RowBox[{"1", "-", SubsuperscriptBox["h", "t", "2"]}], ")"}]}],
+ ",", "   ",
+ RowBox[{SubscriptBox["g", RowBox[{"t", "-", "1"}]], "\[LeftArrow]", RowBox[{SubscriptBox["g", RowBox[{"t", "-", "1"}]], "+", RowBox[{SuperscriptBox["U", "\[Transpose]"], SubscriptBox["\[Delta]", "t"]}]}]}]}], TraditionalForm]], "DisplayFormula"],
+Cell[BoxData[FormBox[RowBox[{
+ RowBox[{FractionBox[RowBox[{"\[PartialD]", "L"}], RowBox[{"\[PartialD]", "W"}]], "=", RowBox[{UnderscriptBox["\[Sum]", "t"], RowBox[{SubscriptBox["\[Delta]", "t"], SubsuperscriptBox["x", "t", "\[Transpose]"]}]}]}],
+ ",", "   ",
+ RowBox[{FractionBox[RowBox[{"\[PartialD]", "L"}], RowBox[{"\[PartialD]", "U"}]], "=", RowBox[{UnderscriptBox["\[Sum]", "t"], RowBox[{SubscriptBox["\[Delta]", "t"], SubsuperscriptBox["h", RowBox[{"t", "-", "1"}], "\[Transpose]"]}]}]}],
+ ",", "   ",
+ RowBox[{FractionBox[RowBox[{"\[PartialD]", "L"}], RowBox[{"\[PartialD]", "b"}]], "=", RowBox[{UnderscriptBox["\[Sum]", "t"], SubscriptBox["\[Delta]", "t"]}]}]}], TraditionalForm]], "DisplayFormula"],
+Cell[TextData[{
+ "As a test, take a loss that depends only on the last state, ",
+ Cell[BoxData[FormBox[RowBox[{"L", "=", RowBox[{"v", "\[CenterDot]", SubscriptBox["h", "T"]}]}], TraditionalForm]]],
+ ", so the backward pass starts from ",
+ Cell[BoxData[FormBox[RowBox[{SubscriptBox["g", "T"], "=", "v"}], TraditionalForm]]],
+ ":"
+}], "Text"],
+Cell["bptt[{W_, U_, b_}, xs_, gT_] :=\n Module[{hs, dW, dU, db, g = gT, d},\n  hs = FoldList[rnnStep[{W, U, b}, Tanh], ConstantArray[0., Length[b]], xs];\n  (* hs[[t + 1]] is h_t *)\n  dW = 0 W; dU = 0 U; db = 0 b;\n  Do[\n   d = g (1 - hs[[t + 1]]^2);\n   dW += Outer[Times, d, xs[[t]]];\n   dU += Outer[Times, d, hs[[t]]];\n   db += d;\n   g = Transpose[U] . d,\n   {t, Length[xs], 1, -1}];\n  {dW, dU, db}]", "Input"],
+Cell["vTest = {1., -2., 0.5};\ngrad = bptt[p, xs, vTest];\ngrad // Map[MatrixForm]", "Input"],
+Cell["Check: build the same loss with symbolic weight arrays and let D do the calculus:", "Text"],
+Cell["Ws = Array[wW, {3, 2}]; Us = Array[uU, {3, 3}]; bs = Array[bB, 3];\nLsym = vTest . Last[rnnLayer[{Ws, Us, bs}][xs]];\nrules = Thread[Flatten[{Ws, Us, bs}] -> Flatten[p]];\ngradD = {D[Lsym, {Ws}], D[Lsym, {Us}], D[Lsym, {bs}]} /. rules;\nMax@Abs[Flatten[grad - gradD]]", "Input"],
+Cell[TextData[{"The two agree to machine precision (about ", Cell[BoxData[FormBox[SuperscriptBox["10", "-16"], TraditionalForm]]], ")."}], "Text"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["8. Training from scratch: is the sequence going up or down?", "Section"],
+Cell["Generate random scalar sequences of length 3 to 8. The label is 1 if the last value is larger than the first, and 0 otherwise. The network has to remember the first value until the end, so it needs its recurrent state.", "Text"],
+Cell["SeedRandom[42];\ngen[k_] := Table[\n   With[{s = RandomReal[{-1, 1}, RandomInteger[{3, 8}]]},\n    List /@ s -> If[Last[s] > First[s], 1, 0]],\n   k];\ntrain = gen[2000]; test = gen[200];\nRandomSample[train, 2]", "Input"],
+Cell[TextData[{
+ "Model: the recurrent layer with n = 16 reads the sequence, and its last state goes through a logistic readout, ",
+ Cell[BoxData[FormBox[RowBox[{"p", "=", RowBox[{"\[Sigma]", "(", RowBox[{RowBox[{"v", "\[CenterDot]", SubscriptBox["h", "T"]}], "+", "c"}], ")"}]}], TraditionalForm]]],
+ ". With the cross-entropy loss, the gradient at the readout is simply ",
+ Cell[BoxData[FormBox[RowBox[{"p", "-", "y"}], TraditionalForm]]],
+ ", so the backward pass into the layer starts from ",
+ Cell[BoxData[FormBox[RowBox[{SubscriptBox["g", "T"], "=", RowBox[{RowBox[{"(", RowBox[{"p", "-", "y"}], ")"}], "v"}]}], TraditionalForm]]],
+ "."
+}], "Text"],
+Cell["n = 16;\nSeedRandom[1];\n{W, U, b} = init[n, 1];\nv = RandomReal[{-1, 1} Sqrt[6/(n + 1)], n]; c = 0.;\npredict[xs_] := LogisticSigmoid[\n   v . Fold[rnnStep[{W, U, b}, Tanh], ConstantArray[0., n], xs] + c];\naccuracy[data_] := N@Mean[Boole[(Round[predict[First[#]]] == Last[#]) & /@ data]];\naccuracy[test]", "Input"],
+Cell["One stochastic gradient-descent update for one example, reusing bptt from section 7:", "Text"],
+Cell["eta = 0.02;\nsgdStep[xs_ -> y_] := Module[{hT, pr, dz, dW, dU, db},\n   hT = Fold[rnnStep[{W, U, b}, Tanh], ConstantArray[0., n], xs];\n   pr = LogisticSigmoid[v . hT + c];\n   dz = pr - y;\n   {dW, dU, db} = bptt[{W, U, b}, xs, dz v];\n   v -= eta dz hT; c -= eta dz;\n   W -= eta dW; U -= eta dU; b -= eta db;];", "Input"],
+Cell["Fifteen passes over the training set (about 10 seconds), recording test accuracy after each pass:", "Text"],
+Cell["history = Table[\n   Scan[sgdStep, RandomSample[train]]; accuracy[test],\n   {15}];\nListLinePlot[history, AxesLabel -> {\"pass\", \"accuracy\"}, PlotRange -> {0.5, 1},\n LabelStyle -> Directive[Black, FontSize -> 14], ImageSize -> 440]\nLast[history]", "Input"],
+Cell["In a test run the final accuracy was about 0.87. The curve is noisy because plain SGD updates after every single example; lowering eta in later passes smooths it.", "Text"],
+Cell["predict /@ {{{-0.9}, {0.3}, {0.1}, {0.7}}, {{0.8}, {-0.2}, {0.5}, {-0.6}}}", "Input"]
+}, Open]],
+
+Cell[CellGroupData[{
+Cell["9. Exercises", "Section"],
+Cell["Extend bptt to the ReLU activation. Its derivative is UnitStep[a], where a = W x + U h + b, so you need to keep a as well as h.", "Item"],
+Cell["Load the trained W, U, b into a built-in BasicRecurrentLayer[16] with NetReplacePart and confirm that it produces the same final states.", "Item"],
+Cell["Train on sequences of length 3 to 8, then test on sequences of length 30. What happens, and why?", "Item"],
+Cell["Print Norm[dU] for one example as the sequence length grows. Do you see vanishing or exploding gradients?", "Item"]
+}, Open]],
+
+Cell["\[Copyright] Computational Classnotes \[CenterDot] CC BY-NC-SA 4.0", "Text", TextAlignment -> Center, FontSlant -> "Italic", FontColor -> GrayLevel[0.4]]
+},
+CellContext -> Notebook,
+PrintingOptions -> {"PaperSize" -> {595.28, 841.89}, "PrintingMargins" -> {{54, 54}, {60, 60}}},
+WindowTitle -> "BasicRecurrentLayer from Scratch"
+]

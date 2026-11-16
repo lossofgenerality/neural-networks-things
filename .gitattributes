@@ -1,0 +1,8 @@
+# Wolfram notebooks are text; show them as Mathematica on GitHub
+*.nb linguist-language=Mathematica
+*.wl linguist-language=Mathematica
+
+# Binary files
+*.pdf binary
+*.png binary
+*.jpg binary
