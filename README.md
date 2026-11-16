@@ -27,6 +27,15 @@ S-shaped functions rise from 0 to 1 around a threshold. The notebook follows the
 - **CCN Node:** https://discuss.compclassnotes.com/t/s-shape-functions-theory/522
 - **CCN Wiki:** https://wiki.compclassnotes.com/books/neural-networks/page/s-shape-functions-theory
 
+#### Solved exercises
+
+The seven exercises of section 8, each stated and solved with derivations, numerical checks and plots: the staircase with arctan and algebraic sigmoids, a non-monotone sigmoid, the polynomial activation t², x y z as a Kolmogorov superposition, BasicRecurrentLayer as a Cybenko sum, gradients with respect to the weights and training with them, and convergence rates predicted from the modulus of continuity.
+
+| File | What it is |
+|---|---|
+| [`S-Shape-Functions-Solved-Exercises.nb`](s-shape-functions-theory/S-Shape-Functions-Solved-Exercises.nb) | The Wolfram notebook, evaluated (Wolfram 15) |
+| [`S-Shape-Functions-Solved-Exercises.pdf`](s-shape-functions-theory/S-Shape-Functions-Solved-Exercises.pdf) | Printed version, A4 |
+
 ### [BasicRecurrentLayer](basic-recurrent-layer/)
 
 | File | What it is |
@@ -37,7 +46,7 @@ S-shaped functions rise from 0 to 1 around a threshold. The notebook follows the
 ## Using the notebooks
 
 - Open them in Mathematica or Wolfram Desktop, version 14 or later; S Shape Functions Theory was saved with Wolfram 15.
-- Evaluate from the top. In S Shape Functions Theory, run the settings cell **c.0** first: it sets the font sizes and figure widths used by every figure and table.
+- Evaluate from the top. In S Shape Functions Theory, run the settings cell **c.0** first: it sets the font sizes and figure widths used by every figure and table. In the solved exercises, run **c.0** and **c.0.1** first; after that each problem runs on its own.
 - Every code cell starts with an index comment such as `(*c.7*)`, so cells can be referred to by number.
 - Each notebook keeps its variables in a private context, so notebooks open in the same session do not interfere with each other.
 - The small organism photos in section 0 of S Shape Functions Theory are loaded from Wikimedia Commons when their cells run, so those cells need an internet connection.
