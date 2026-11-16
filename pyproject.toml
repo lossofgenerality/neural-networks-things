@@ -1,7 +1,11 @@
+# © Computational Classnotes · CC BY-NC-SA 4.0
 [project]
 name = "neural-networks-things"
 version = "0.1.0"
 description = "Python editions of the Computational Classnotes neural-network notebooks"
+authors = [{ name = "Dara O Shayda" }, { name = "Noor Hoshino" }]
+license = "CC-BY-NC-SA-4.0"
+license-files = ["LICENSE.md"]
 requires-python = ">=3.14"
 dependencies = [
     "ipykernel>=7.4.0",

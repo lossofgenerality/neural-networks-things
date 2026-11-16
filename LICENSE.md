@@ -2,7 +2,7 @@
 
 © Computational Classnotes · CC BY-NC-SA 4.0
 
-The notebooks, PDFs, Markdown editions and figures in this repository are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).
+The notebooks (Wolfram and Python editions), PDFs, Markdown editions, figures and code in this repository are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).
 
 - Summary: https://creativecommons.org/licenses/by-nc-sa/4.0/
 - Legal code: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
