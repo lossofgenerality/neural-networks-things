@@ -20333,7 +20333,7 @@ Figure 2. Move the slider: the larger \[Lambda], the closer \
 
 Cell[CellGroupData[{
 
-Cell["(*c.5*)\nManipulate[\n Plot[{LogisticSigmoid[\[Lambda] t], UnitStep[t]}, {t, -3, 3},\n  PlotRange -> {-0.05, 1.05}, PlotStyle -> {Thick, Dashed},\n  PlotLegends -> Placed[LineLegend[{\"\[Sigma](\[Lambda]t)\", \"step\"},\n     LabelStyle -> figStyle], Below],\n  PlotLabel -> \"Figure 2. Steep sigmoid \[Rule] step\",\n  LabelStyle -> figStyle, ImageSize -> wFull],\n {{\[Lambda], 1}, 0.2, 50}]", "Input",
+Cell["(*c.5*)\nManipulate[\n Plot[{LogisticSigmoid[\[Lambda] t], UnitStep[t]}, {t, -3, 3},\n  PlotRange -> {-0.05, 1.05}, PlotStyle -> {Thick, Dashed},\n  PlotLegends -> Placed[LineLegend[{\"\[Sigma](\[Lambda]t)\", \"step\"},\n     LabelStyle -> figStyle], Below],\n  PlotLabel -> \"Figure 2. Steep sigmoid \[Rule] step\",\n  LabelStyle -> figStyle, ImageSize -> wFull],\n {{\[Lambda], 1}, 0.2, 50},\n SaveDefinitions -> True]", "Input",
  CellLabel->"In[54]:=",ExpressionUUID->"76cec29c-7107-460f-9584-2bd0f3f3a0ad"],
 
 Cell[BoxData[

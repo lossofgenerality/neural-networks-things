@@ -498,7 +498,8 @@ Manipulate[
      LabelStyle -> figStyle], Below],
   PlotLabel -> "Figure 2. Steep sigmoid → step",
   LabelStyle -> figStyle, ImageSize -> wFull],
- {{λ, 1}, 0.2, 50}]
+ {{λ, 1}, 0.2, 50},
+ SaveDefinitions -> True]
 ```
 
 *Static version of the interactive Figure 2, for λ = 1, 3, 10, 50:*
