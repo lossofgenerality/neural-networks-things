@@ -133,9 +133,9 @@ commonsImage["Loligo_vulgaris.jpg"]
 
 <img alt="Photo 0.1" src="photos/squid-loligo-vulgaris.jpg" width="160">
 
-$$
+```math
 {P}_{\text{open}} ( V ) = \frac{1}{1 + {e}^{- \frac{z \  F ( V - {V}_{1/2} )}{R \  T}}} = \sigma ( \frac{V - {V}_{1/2}}{k} ) , \quad  k = \frac{R \  T}{z \  F} \quad  \tag{0.1}
-$$
+```
 
 At body temperature RT/F is about 26.7 mV, so a channel that moves z = 4 elementary charges has a slope k of about 6.7 mV: a change of a few millivolts switches it from mostly closed to mostly open. Figure 0.1 uses an illustrative ${V}_{1/2}$ = -30 mV.
 
@@ -169,9 +169,9 @@ commonsImage["1GZX_Haemoglobin.png"]
 
 <img alt="Photo 0.2" src="photos/hemoglobin-1gzx.jpg" width="160">
 
-$$
+```math
 S ( P ) = \frac{{( P / {P}_{50} )}^{n}}{1 + {( P / {P}_{50} )}^{n}} = \sigma ( n \  \ln  ( P / {P}_{50} ) ) \quad  \tag{0.2}
-$$
+```
 
 The second form shows that the Hill curve is the logistic function of the logarithm of the pressure. On a linear pressure axis it is S-shaped only when n > 1; that is why the shape is the signature of cooperativity. The S-shape is what makes blood work: nearly full in the lungs (about 100 mmHg), yet giving up a quarter of its oxygen in resting tissue (about 40 mmHg).
 
@@ -213,9 +213,9 @@ commonsImage["Drosophila_melanogaster_-_side_(aka).jpg"]
 
 <img alt="Photo 0.3" src="photos/drosophila-melanogaster.jpg" width="160">
 
-$$
+```math
 B ( x ) = {B}_{A} {e}^{- x / \lambda} , \quad  \text{hb} ( x ) = \frac{{B}^{H}}{{B}^{H} + {B}_{0}^{H}} = \sigma ( - \frac{H}{\lambda} ( x - {x}_{0} ) ) \quad  \tag{0.3}
-$$
+```
 
 An exponential gradient fed into a Hill function gives exactly a logistic function of position, centred at ${x}_{0}$ = λ ln(${B}_{A}$/${B}_{0}$) with width λ/H. A larger Hill coefficient H gives a sharper boundary. Figure 0.3 uses a decay length λ of a fifth of the embryo length, of the order of the 120 μm used in one recent model [0.10], and places the boundary at mid-embryo.
 
@@ -250,11 +250,11 @@ Biologists describe such a gene as a switch with a dimmer that suddenly snaps on
 
 Diffusion produces S-shapes in both space and time. Suppose a substance at concentration ${C}_{0}$ fills the region x < 0 and is absent from x > 0, for example a signalling molecule at the edge of a tissue. Solving Fick's second law gives an error-function front [0.11]:
 
-$$
-C ( x , t ) = \frac{{C}_{0}}{2} \  \operatorname{erfc}  ( \frac{x}{2 \sqrt{D \  t}} ) = {C}_{0} \  {\sigma}_{\operatorname{erf} } ( - \frac{x}{2 \sqrt{D \  t}} ) \quad  \tag{0.4}
-$$
+```math
+C ( x , t ) = \frac{{C}_{0}}{2} \  \mathrm{erfc}  ( \frac{x}{2 \sqrt{D \  t}} ) = {C}_{0} \  {\sigma}_{\mathrm{erf}} ( - \frac{x}{2 \sqrt{D \  t}} ) \quad  \tag{0.4}
+```
 
-Here ${\sigma}_{\operatorname{erf} }$(s) = (1 + erf s)/2 is the error-function sigmoid of Figure 1. The front has width of the order of the diffusion length 2√(D t), which grows only like the square root of time. With a constant source at the boundary of a half-space, the profile is the complementary error function itself.
+Here ${\sigma}_{\mathrm{erf}}$(s) = (1 + erf s)/2 is the error-function sigmoid of Figure 1. The front has width of the order of the diffusion length 2√(D t), which grows only like the square root of time. With a constant source at the boundary of a half-space, the profile is the complementary error function itself.
 
 Seen from a fixed point x > 0, the concentration starts flat, rises, and saturates towards ${C}_{0}$/2: an S-shaped curve in time, which is clearest on a logarithmic time axis. This is diffusion saturation. A related case is uptake through carriers in a cell membrane, which saturates hyperbolically with concentration (Michaelis–Menten kinetics) and looks S-shaped on a logarithmic concentration axis.
 
@@ -298,9 +298,9 @@ commonsImage["Paramecium.jpg"]
 
 <img alt="Photo 0.5" src="photos/paramecium-aurelia.jpg" width="160">
 
-$$
+```math
 \frac{d N}{d t} = r \  N ( 1 - \frac{N}{K} ) \quad  \implies \quad  N ( t ) = K \  \sigma ( r ( t - {t}_{1/2} ) ) , \quad  {t}_{1/2} = \frac{\ln  ( ( K - {N}_{0} ) / {N}_{0} )}{r} \quad  \tag{0.5}
-$$
+```
 
 Figure 0.5 uses values fitted to Gause's data for Paramecium aurelia grown alone: ${N}_{0}$ = 0.6, r = 0.8 per day and K = 230, with population measured as a standardized volume [0.13].
 
@@ -336,9 +336,9 @@ commonsImage["Cat_November_2010-1a.jpg"]
 
 <img alt="Photo 0.6" src="photos/cat.jpg" width="160">
 
-$$
+```math
 R ( c ) = {R}_{\max } \frac{{c}^{n}}{{c}^{n} + {c}_{50}^{n}} = {R}_{\max } \  \sigma ( n \  \ln  ( c / {c}_{50} ) ) \quad  \tag{0.6}
-$$
+```
 
 This is the Hill equation (0.2) again, in a new place: biology reuses the same S-shape for very different mechanisms. It is also the closest biological relative of the artificial neuron of section 3: an input, a threshold ${c}_{50}$, a slope n, and a saturating output. Figure 0.6 uses the illustrative values n = 2 and ${c}_{50}$ = 0.2.
 
@@ -399,9 +399,9 @@ Photo credits. Photos 0.1–0.6 come from Wikimedia Commons and are loaded when 
 
 Cybenko (1989) calls a function σ: ℝ → ℝ sigmoidal if it goes to 0 on the far left and to 1 on the far right:
 
-$$
+```math
 \lim _{t \to - \infty} \sigma ( t ) = 0 , \quad  \lim _{t \to + \infty} \sigma ( t ) = 1 \tag{1}
-$$
+```
 
 Equation (1) is the whole definition. It does not ask for monotonicity, smoothness or even continuity (Appendix A). Continuity is needed only for the main theorem in section 3, and boundedness plus measurability for some of its variants.
 
@@ -468,9 +468,9 @@ The functions differ in how fast they approach their limits: the logistic and ta
 - Its output between 0 and 1 can be read as a probability or a firing rate.
 - The logistic function has an especially cheap derivative, expressed through itself:
 
-$$
+```math
 \sigma ( t ) = \frac{1}{1 + {e}^{- t}} , \quad  {\sigma}^{\prime} ( t ) = \sigma ( t ) ( 1 - \sigma ( t ) ) , \quad  \tanh  \  t = 2 \  \sigma ( 2 t ) - 1 \tag{2}
-$$
+```
 
 Both identities of Eq. (2), checked:
 
@@ -509,9 +509,9 @@ Manipulate[
 
 G. Cybenko, "Approximation by superpositions of a sigmoidal function", Mathematics of Control, Signals, and Systems 2 (1989) 303–314. The question: can finite sums of one fixed S-shaped function, applied to affine combinations of the inputs, approximate every continuous function? Such sums have the form
 
-$$
+```math
 \begin{gathered}G ( x ) = {\sum}_{j = 1}^{N} {\alpha}_{j} \  \sigma ( {y}_{j}^{\top} x + {\theta}_{j} ) \\ \text{where} \  x \in {I}_{n} = {[ 0 , 1 ]}^{n} , \quad  {y}_{j} \in {\mathbb{R}}^{n} , \quad  {\alpha}_{j} , {\theta}_{j} \in \mathbb{R}\end{gathered} \tag{3}
-$$
+```
 
 Eq. (3) is exactly a neural network with one hidden layer of N units: unit j computes σ(${y}_{j}$·x + ${\theta}_{j}$), and the output is a linear combination of the units. Figure 3 draws it for n = 2 inputs and N = 3 hidden units.
 
@@ -557,18 +557,18 @@ Graph[Join[inE, outE], VertexCoordinates -> coords,
 
 Figure 3 is a directed acyclic graph. Each vertex is a quantity, and an edge from i to j says that quantity i is an argument of the function computed at j, with the edge label as its coefficient. Written node by node, then in matrix form:
 
-$$
+```math
 \begin{gathered}{z}_{j} = {\sum}_{i = 1}^{n} {y}_{ji} {x}_{i} + {\theta}_{j} , \quad  {h}_{j} = \sigma ( {z}_{j} ) , \quad  G = {\sum}_{j = 1}^{N} {\alpha}_{j} {h}_{j} \\ \iff \quad  G ( x ) = {\alpha}^{\top} \sigma ( Y \  x + \theta ) , \quad  Y \in {\mathbb{R}}^{N \times n}\end{gathered} \tag{4}
-$$
+```
 
 - The arrows of the first layer are the entries of the matrix Y. The arrow from ${x}_{i}$ to ${h}_{j}$ carries ${y}_{ji}$: row j for the receiving unit, column i for the sending input. The arrows of the second layer are the entries of the vector α. A missing arrow is a zero entry.
 - The offset ${\theta}_{j}$ can be drawn as one more arrow, from a constant input that is always 1. Counting arrows then counts parameters: nN + N + N.
 - The graph has no cycles, so it describes a composition of functions. Eq. (4) is G = L₂ ∘ σ ∘ L₁, with the affine map L₁(x) = Y x + θ, σ applied to each component, and the linear map L₂(h) = α·h. This is Eq. (3) again. Each piece is continuous, so G is continuous (Appendix A).
 - The arrows also show how derivatives flow. Each arrow's label is a local partial derivative (∂${z}_{j}$/∂${x}_{i}$ = ${y}_{ji}$ and ∂G/∂${h}_{j}$ = ${\alpha}_{j}$), and each node contributes ∂${h}_{j}$/∂${z}_{j}$ = σ′(${z}_{j}$). By the chain rule, the derivative of the output with respect to an input is the sum, over every path from that input to G, of the product of the local derivatives along the path:
 
-$$
+```math
 \frac{\partial G}{\partial {x}_{i}} = {\sum}_{j = 1}^{N} \underset{h \to G}{{\alpha}_{j}} \  \underset{\text{inside} \  {h}_{j}}{{\sigma}^{\prime} ( {z}_{j} )} \  \underset{x \to h}{{y}_{ji}} \tag{5}
-$$
+```
 
 Computing Eq. (5) for all inputs at once, by walking the arrows backwards from G, is backpropagation. A numerical check against automatic differentiation. All its variables are local to the Module, so nothing defined elsewhere can interfere:
 
@@ -599,9 +599,9 @@ The difference is at machine-precision level (about ${10}^{-17}$).
 
 **Discriminatory.** σ is discriminatory if the only finite signed regular Borel measure μ on ${I}_{n}$ that satisfies
 
-$$
+```math
 {\int}_{{I}_{n}} \sigma ( {y}^{\top} x + \theta ) \mathrm{d} \mu ( x ) = 0 \quad  \text{for all} \quad  y \in {\mathbb{R}}^{n} , \theta \in \mathbb{R} \tag{6}
-$$
+```
 
 is μ = 0. In words, Eq. (6) says that no nonzero measure is invisible to every ridge function σ(y·x + θ).
 
@@ -634,9 +634,9 @@ Note what the theorem does not say. It is an existence result: it gives no formu
 
 The proof idea can be made constructive in 1D. Steep sigmoids are nearly steps, and a sum of steps is a staircase that follows f. Place a step halfway between consecutive grid points k/N, with height equal to the change of f there:
 
-$$
+```math
 {G}_{N} ( x ) = f ( 0 ) + {\sum}_{k = 1}^{N} ( f ( \frac{k}{N} ) - f ( \frac{k - 1}{N} ) ) \sigma ( \lambda ( x - \frac{k - 1 / 2}{N} ) ) \tag{7}
-$$
+```
 
 Eq. (7) is a special case of Eq. (3), with n = 1, ${y}_{k}$ = λ, ${\theta}_{k}$ = -λ(k - 1/2)/N, and ${\alpha}_{k}$ equal to the jumps of f, plus a constant.
 
@@ -842,9 +842,9 @@ In 1900 Hilbert asked whether the roots of the degree-7 equation x⁷ + a x³ + 
 
 **Theorem 5 (Kolmogorov 1957).** Every continuous (Appendix A) $f : {[ 0 , 1 ]}^{n} \to \mathbb{R}$, n ≥ 2, can be written exactly as
 
-$$
+```math
 f ( {x}_{1} , \ldots , {x}_{n} ) = {\sum}_{q = 0}^{2 n} {\Phi}_{q} ( {\sum}_{p = 1}^{n} {\psi}_{p , q} ( {x}_{p} ) ) \tag{8}
-$$
+```
 
 - The inner functions ${\psi}_{p,q}$ of Eq. (8) are continuous and increasing, and universal: they depend only on n, not on f.
 - The outer functions ${\Phi}_{q}$ are continuous and depend on f.
@@ -895,9 +895,9 @@ The catch is that the inner functions are pathological. They are continuous but 
 
 Write Cybenko's sum, Eq. (3), with the inner product spelled out, next to Kolmogorov's formula, Eq. (8):
 
-$$
+```math
 \begin{gathered}G ( x ) = {\sum}_{j = 1}^{N} {\alpha}_{j} \  \sigma ( {\sum}_{p = 1}^{n} {y}_{j p} {x}_{p} + {\theta}_{j} ) \quad  \text{(Cybenko)} \\ f ( x ) = {\sum}_{q = 0}^{2 n} {\Phi}_{q} ( {\sum}_{p = 1}^{n} {\psi}_{p , q} ( {x}_{p} ) ) \quad  \text{(Kolmogorov)}\end{gathered} \tag{9}
-$$
+```
 
 The two sides of Eq. (9) match term by term. Cybenko's network is a Kolmogorov representation in which the inner functions are linear, ${\psi}_{p , j} ( {x}_{p} ) = {y}_{j p} {x}_{p}$, and every outer function is a scaled and shifted copy of the same S-shape, ${\Phi}_{j} ( s ) = {\alpha}_{j} \sigma ( s + {\theta}_{j} )$. In the pictures, Figure 8 becomes Figure 3 when you move the flexibility off the node functions and onto weights on the arrows. Trading Kolmogorov's wild, special-purpose functions for one simple, smooth, fixed one costs two things: the representation is no longer exact, and the number of terms is no longer 2n + 1 but N(ε), which may be enormous.
 
@@ -951,9 +951,9 @@ Both theorems are about continuous functions: Cybenko's approximates every funct
 
 In everyday terms: f is continuous at a point a if a small change in the input near a produces only a small change in the output. On an interval, the graph of a continuous function can be drawn without lifting the pen. In mathematical terms, f: D → ℝ is continuous at a ∈ D if
 
-$$
+```math
 \begin{gathered}\forall \varepsilon > 0 \  \exists \delta > 0 \  \forall x \in D : \\ \quad  \lvert x - a \rvert < \delta \quad  \implies \quad  \lvert f ( x ) - f ( a ) \rvert < \varepsilon\end{gathered} \tag{10}
-$$
+```
 
 - f is continuous on D if Eq. (10) holds at every point of D.
 - Equivalent forms: ${\lim }_{x\to a}$ f(x) = f(a); or, for every sequence ${x}_{k}$ → a, f(${x}_{k}$) → f(a).
@@ -964,15 +964,15 @@ $$
 
 In Eq. (10), δ may depend on the point a. If one δ works for all points at once, f is uniformly continuous:
 
-$$
+```math
 \begin{gathered}\forall \varepsilon > 0 \  \exists \delta > 0 \  \forall x , {x}^{\prime} \in D : \\ \quad  \lvert x - {x}^{\prime} \rvert < \delta \quad  \implies \quad  \lvert f ( x ) - f ( {x}^{\prime} ) \rvert < \varepsilon\end{gathered} \tag{11}
-$$
+```
 
 The modulus of continuity measures the largest change of f over distances up to δ:
 
-$$
+```math
 \begin{gathered}{\omega}_{f} ( \delta ) = \sup _{\lvert x - {x}^{\prime} \rvert \le \delta} \lvert f ( x ) - f ( {x}^{\prime} ) \rvert \\ f \  \text{uniformly continuous} \quad  \iff \quad  {\omega}_{f} ( \delta ) \to 0 \  \text{as} \  \delta \to 0\end{gathered} \tag{12}
-$$
+```
 
 - **Theorem 9 (Heine–Cantor).** A continuous function on a closed, bounded set, such as [0, 1] or the cube ${I}_{n}$, is uniformly continuous.
 - **Theorem 10 (extreme value theorem).** A continuous function on a closed, bounded set attains its maximum and minimum. So the sup norm ‖f‖ = max |f| is finite, and C(${I}_{n}$) with this norm is the space in Theorems 1 and 2.

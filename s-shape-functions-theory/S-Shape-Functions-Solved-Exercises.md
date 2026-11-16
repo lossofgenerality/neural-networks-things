@@ -135,15 +135,15 @@ Max@Abs[stairOn[LogisticSigmoid, f[nodes[10]], 200, {0.13, 0.5, 0.77}] -
 
 The three functions are the logistic σ(t) = 1/(1 + ${e}^{-t}$), the arctan sigmoid 1/2 + arctan(t)/π and the algebraic sigmoid (1 + t/√(1 + ${t}^{2}$))/2. All three are sigmoidal in the sense of Eq. (M1) and all three are symmetric, σ(-t) = 1 - σ(t). What separates them is how fast they reach their limits. Write T(u) = 1 - σ(u) for the tail, the distance from the limit 1 at u > 0. By symmetry the same T(u) is the distance from the limit 0 at -u. As u → ∞,
 
-$$
+```math
 1 - \sigma ( u ) \sim \begin{cases}{e}^{- u} & \text{logistic} \\ \frac{1}{\pi u} & \text{arctan} \\ \frac{1}{4 {u}^{2}} & \text{algebraic}\end{cases} \quad  u \to \infty \quad  \tag{1.1}
-$$
+```
 
 The logistic tail is exponential; the other two are algebraic, and the arctan tail is the slowest of all: at u = 1000 it is still 3 × ${10}^{-4}$. Solving T(u) = η for u gives the steepness at which each function is within η of its limit:
 
-$$
+```math
 {u}_{\eta} = \begin{cases}\log  ( \frac{1 - \eta}{\eta} ) & \text{logistic} \\ \cot  ( \pi \eta ) & \text{arctan} \\ \frac{1 - 2 \eta}{2 \sqrt{\eta ( 1 - \eta )}} & \text{algebraic}\end{cases} \quad  \tag{1.2}
-$$
+```
 
 For η = ${10}^{-6}$ the logistic needs u ≈ 14, the algebraic sigmoid u ≈ 500 and the arctan sigmoid u ≈ 318000: the logistic grows like ln(1/η), the algebraic like 1/(2√η) and the arctan like 1/(πη).
 
@@ -229,9 +229,9 @@ table[Prepend[
 
 A surprise: at λ = 20 N the three errors are almost the same, and the arctan staircase is even slightly better. The sup-norm error here is dominated by the coarseness of the staircase, which is O(1/N) whatever the S-shape, and a softer step even rounds the corners of the staircase a little. To see where the S-shape matters, compare ${G}_{N}$ with the ideal staircase ${S}_{N}$ of hard steps, the limit λ → ∞ used in the proof of Lemma M1:
 
-$$
+```math
 \begin{gathered}{S}_{N} ( x ) = f ( 0 ) + {\sum}_{k = 1}^{N} {\Delta}_{k} \  H ( x - {c}_{k} ) \\ {\Delta}_{k} = f ( \frac{k}{N} ) - f ( \frac{k - 1}{N} ) , {c}_{k} = \frac{k - \frac{1}{2}}{N} , {S}_{N} ( \frac{k}{N} ) = f ( \frac{k}{N} )\end{gathered} \quad  \tag{1.3}
-$$
+```
 
 ${S}_{N}$ is exact at the nodes k/N, which lie halfway between two step positions ${c}_{k}$. So any error of ${G}_{N}$ at a node is caused by the tails of the steps alone. We call it leakage.
 
@@ -269,9 +269,9 @@ figure[{{
 
 At a node ${x}_{k}$ every step to its left has risen to 1 - T and every step to its right has risen to T. With the symmetry σ(-u) = 1 - σ(u), the leakage is exactly
 
-$$
+```math
 \begin{gathered}{G}_{N} ( {x}_{k} ) - f ( {x}_{k} ) = - \sum_{m} \operatorname{sgn}  ( {x}_{k} - {c}_{m} ) \  {\Delta}_{m} \  T ( \lambda | {x}_{k} - {c}_{m} | ) \\ T ( u ) = 1 - \sigma ( u ) = \sigma ( - u ) , {x}_{k} = \frac{k}{N}\end{gathered} \quad  \tag{1.4}
-$$
+```
 
 Each jump ${\Delta}_{m}$ of f contributes its height times the tail at the scaled distance from the node. Replacing T by its leading term from Eq. (1.1) turns Eq. (1.4) into a prediction, without any fitting. For the logistic only the two nearest steps, at distance 1/(2N), matter, and the leakage falls like exp(-λ/(2N)). For the algebraic sigmoid every step contributes and the leakage falls like 1/${\lambda}^{2}$. For the arctan sigmoid it falls only like 1/λ, and the sum over all steps does not cancel.
 
@@ -334,9 +334,9 @@ ListLogLogPlot[
 
 Setting the leakage equal to a tolerance η and solving for λ gives the answer to the question. Write ${L}_{1}$ and ${L}_{2}$ for the largest leakage of the arctan and algebraic sigmoids at λ = 1, computed from Eq. (1.4) with the leading terms; then the leakage is ${L}_{1}$/λ and ${L}_{2}$/${\lambda}^{2}$, and
 
-$$
+```math
 {\lambda}_{\text{logistic}} \approx 2 N \  \log  ( \frac{| {\Delta}_{N} |}{\eta} ) , {\lambda}_{\text{arctan}} \approx \frac{{L}_{1}}{\eta} , {\lambda}_{\text{algebraic}} \approx \sqrt{\frac{{L}_{2}}{\eta}} \quad  \tag{1.5}
-$$
+```
 
 *Table 1.4. The λ needed for a leakage of ${10}^{-3}$, found by root finding, against Eq. (1.5).*
 
@@ -410,9 +410,9 @@ With λ = 20 N, as in Table M3, the three S-shapes give almost the same sup-norm
 
 Write s for the new function:
 
-$$
+```math
 s ( t ) = \sigma ( t ) + \sin  \  t \  {e}^{- {t}^{2}} , \lim _{t \to - \infty} \  s ( t ) = 0 , \lim _{t \to + \infty} \  s ( t ) = 1 \quad  \tag{2.1}
-$$
+```
 
 Since |sin(t) exp(-${t}^{2}$)| ≤ exp(-${t}^{2}$) → 0, the added term disappears at both ends and the limits are those of σ: 0 and 1. That is all Eq. (M1) asks for, so s is sigmoidal. It is also continuous, and it keeps the symmetry s(-t) = 1 - s(t), because sin is odd. But it is not monotone. Its derivative changes sign four times in (-4, 4). s rises above 1, to 1.068 at t = 0.784, and by symmetry dips below 0, to -0.068 at t = -0.784.
 
@@ -496,9 +496,9 @@ Plot[{sNum[t], sNum[4 t], sNum[16 t], UnitStep[t]},
 
 Build the staircase of Eq. (M7) from s instead of σ. Compared with the ideal staircase ${S}_{N}$ of Eq. (1.3), each step now has a wiggle of relative size up to 0.068 on either side. Splitting the error as in Problem 1 gives the bound
 
-$$
+```math
 \begin{gathered}| {G}_{N} ( x ) - f ( x ) | \le {\omega}_{f} ( \frac{1}{2 N} ) + {K}_{s} \  {\omega}_{f} ( \frac{1}{N} ) \\ {K}_{s} = \sup _{x} \  \sum_{k} | s ( \lambda ( x - {c}_{k} ) ) - H ( x - {c}_{k} ) |\end{gathered} \quad  \tag{2.2}
-$$
+```
 
 The first term is the ideal staircase, Eq. (7.1) below. The second collects all the steps, each of height |${\Delta}_{k}$| ≤ ${\omega}_{f}$(1/N). With λ = c N the constant ${K}_{s}$ depends only on s and c, not on N, because |s(u) - H(u)| decays fast (here like ${e}^{-u}$). So the error is O(${\omega}_{f}$(1/N)), the same order as for the logistic. Only the constant changes.
 
@@ -638,21 +638,21 @@ The logistic error keeps falling, from 0.5 to 2 × ${10}^{-5}$ in RMS. The ${t}^
 
 With σ(t) = ${t}^{2}$ every hidden unit is the square of an affine function, and expanding the square gives only the monomials 1, x, y, ${x}^{2}$, x y, ${y}^{2}$:
 
-$$
+```math
 \begin{gathered}{\sum}_{j = 1}^{N} {\alpha}_{j} \  {( {y}_{j 1} x + {y}_{j 2} y + {\theta}_{j} )}^{2} = {a}_{0} + {a}_{1} x + {a}_{2} y + {a}_{3} {x}^{2} + {a}_{4} x y + {a}_{5} {y}^{2}\end{gathered} \quad  \tag{3.1}
-$$
+```
 
 However many units there are, the network is a polynomial of degree at most 2, an element of a 6-dimensional space. With ${t}^{3}$ it is a polynomial of degree at most 3. In general the polynomials of degree at most k in n variables form a space of dimension
 
-$$
+```math
 \dim  \  {P}_{k} ( {\mathbb{R}}^{n} ) = \begin{pmatrix}n + k \\ k\end{pmatrix} , n = 2 : k = 2 \implies 6 , k = 3 \implies 10 \quad  \tag{3.2}
-$$
+```
 
 Adding units adds columns to the 2000 × N hidden matrix, but beyond 6 (or 10) columns they are linear combinations of the earlier ones. The rank stops growing, Table 3.3, and the singular values beyond the 6th (or 10th) are zero up to rounding, Figure 3.2. The least-squares fit can then do no better than the best polynomial of that degree. That polynomial can be computed exactly by projecting g onto the monomials in the mean square over [-1, 1]²:
 
-$$
+```math
 {p}_{2} = 0 , {p}_{3} = \frac{45 x ( 1 - 3 {y}^{2} )}{2 {\pi}^{3}} \quad  \tag{3.3}
-$$
+```
 
 The best quadratic is zero. g is odd in x and even in y, so the only quadratic monomial that could match it is x, and its coefficient contains the integral of cos(πy) over [-1, 1], which is 0. The RMS error of the zero polynomial is the RMS of g itself, 1/2. The cubic picks up x and x ${y}^{2}$, and its error is 0.331. Both agree with the plateaus of Table 3.1; the small differences come from using 2000 sample points instead of the integral.
 
@@ -792,15 +792,15 @@ With σ(t) = ${t}^{2}$ every network is a quadratic polynomial, Eq. (3.1), whate
 
 The logarithm turns a product into a sum, and the exponential turns it back:
 
-$$
+```math
 x y z = \exp  ( \ln  \  x + \ln  \  y + \ln  \  z ) , x , y , z > 0 \quad  \tag{4.1}
-$$
+```
 
 This has the shape of Eq. (M8) with n = 3: inner functions applied to each variable separately, their sum, then one outer function. Eq. (M8) has 2n + 1 = 7 branches, q = 0, ..., 6; we need only the first and set the outer function of the others to zero:
 
-$$
+```math
 {\Phi}_{0} = \exp  , {\psi}_{p , 0} = \ln  , {\Phi}_{q} = 0 \  for \  q = 1 , \ldots , 6 \quad  \tag{4.2}
-$$
+```
 
 The inner functions are continuous and increasing, as in Kolmogorov's theorem, but they are not universal: they were chosen for this f. Kolmogorov's theorem promises universal inner functions that work for every f, at the price of being very rough. Here a smooth, special-purpose choice is enough. Positivity is needed because ln is defined only for positive arguments: at x = 0 the inner value would be -∞.
 
@@ -935,9 +935,9 @@ figure[{{
 
 Using cubes instead of the logarithm gives a superposition valid for all real x, y, z, zeros and negatives included:
 
-$$
+```math
 x y z = \frac{1}{24} [ {( x + y + z )}^{3} - {( x + y - z )}^{3} - {( x - y + z )}^{3} + {( x - y - z )}^{3} ] \quad  \tag{4.3}
-$$
+```
 
 It uses four branches of Eq. (M8), with linear inner functions ±x, ±y, ±z and the outer functions ±s³/24. Since the inner functions are linear, this is also a network of the Cybenko form, Eq. (M3), with activation ${t}^{3}$ and four units. It is exact for this one product, while Problem 3 shows that the same activation cannot approximate functions in general. In the same way, the identity x y = ((x + y)^2 - (x - y)^2)/4 of c.16 in the main notebook is a two-branch superposition of the product of two variables.
 
@@ -972,15 +972,15 @@ For positive x, y, z: x y z = exp(ln x + ln y + ln z), Eq. (4.1). In the form of
 
 BasicRecurrentLayer with input size n and state size m computes, at each time t,
 
-$$
+```math
 {h}_{t} = \tanh  ( W \  {x}_{t} + U \  {h}_{t - 1} + b ) \quad  \tag{5.1}
-$$
+```
 
 with an m × n matrix W, an m × m matrix U and a bias vector b. Two facts turn this into Eq. (M3). First, tanh is a rescaled logistic, tanh s = 2σ(2s) - 1, Eq. (M2). Second, a constant is itself a hidden unit: -1 = -2σ(0·z + 0). Join the input and the old state into one vector z = (${x}_{t}$, ${h}_{t-1}$) of length n + m. Then component i of the new state is
 
-$$
+```math
 \begin{gathered}{h}_{t , i} = 2 \sigma ( 2 ( \sum_{k} {W}_{ik} {x}_{t , k} + \sum_{l} {U}_{il} {h}_{t - 1 , l} + {b}_{i} ) ) - 2 \sigma ( 0 ) \\ = \sum_{j} {\alpha}_{ij} \  \sigma ( {y}_{j} \cdot z + {\theta}_{j} ) , z = ( {x}_{t} , {h}_{t - 1} ) \in {\mathbb{R}}^{n + m}\end{gathered} \quad  \tag{5.2}
-$$
+```
 
 Each component is a sum of Eq. (M3) on the cube of inputs z. It uses two units: unit i, with inner weights ${y}_{i}$ = 2(row i of W, row i of U), offset ${\theta}_{i}$ = 2${b}_{i}$ and outer weight 2, and a constant unit with y = 0, θ = 0 and outer weight -2. The whole new state is such a sum for each i, with the same hidden units shared and the outer weights ${\alpha}_{ij}$ = 2${\delta}_{ij}$. The step is a one-hidden-layer network in which the hidden layer and the output layer have the same size m. So by Theorem M2 a single step can be approximated in the other direction too: with enough units, a sum of this form can follow any continuous update rule for the state.
 
@@ -1132,9 +1132,9 @@ Graph[recE,
 
 Unrolling removes the cycle again. Following the blue arrows forward in time gives a chain of copies of the same step, a deep feedforward network whose layers all share W, U and b:
 
-$$
+```math
 {h}_{t} = F ( {x}_{t} , {h}_{t - 1} ) = F ( {x}_{t} , F ( {x}_{t - 1} , F ( \ldots ) ) ) \quad  \tag{5.3}
-$$
+```
 
 *Figure 5.3. The recurrent layer unrolled over four time steps. Each blue arrow is a copy of the step of Figure 5.1; backpropagation through time follows these arrows backwards, as Eq. (M5) follows the arrows of Figure M3.*
 
@@ -1205,21 +1205,21 @@ Eq. (M5) gives the derivative of G with respect to an input as a sum, over all p
 
 - ${\alpha}_{j}$ sits on the arrow ${h}_{j}$ → G. Its tail carries ${h}_{j}$ = σ(${z}_{j}$), and the head is G itself:
 
-$$
+```math
 \frac{\partial G}{\partial {\alpha}_{j}} = \sigma ( {z}_{j} ) \quad  \tag{6.1}
-$$
+```
 
 - ${\theta}_{j}$ is the weight of an arrow from a constant input 1 to ${h}_{j}$. Its tail carries 1; from there the path passes through the node ${h}_{j}$ (factor σ′(${z}_{j}$)) and the arrow ${h}_{j}$ → G (factor ${\alpha}_{j}$):
 
-$$
+```math
 \frac{\partial G}{\partial {\theta}_{j}} = {\alpha}_{j} \  {\sigma}^{\prime} ( {z}_{j} ) \quad  \tag{6.2}
-$$
+```
 
 - ${y}_{ji}$ sits on the arrow ${x}_{i}$ → ${h}_{j}$. Its tail carries ${x}_{i}$, and the path continues exactly as for ${\theta}_{j}$:
 
-$$
+```math
 \frac{\partial G}{\partial {y}_{ji}} = {\alpha}_{j} \  {\sigma}^{\prime} ( {z}_{j} ) \  {x}_{i} \quad  \tag{6.3}
-$$
+```
 
 Each weight lies on exactly one path to G, so each sum in Eq. (M5) has a single term. Eq. (6.3) is Eq. (6.2) times the input ${x}_{i}$. That is the familiar rule of backpropagation: the gradient of a weight is the signal flowing back to its head, ${\alpha}_{j}$ σ′(${z}_{j}$), times the activity at its tail.
 
@@ -1267,9 +1267,9 @@ Module[{Yw, th, al, x0, yv, tv, av, yy, tt, aa, gNet, rules, auto, z,
 
 These formulas are what gradient training needs. Fit G to f on points ${x}_{1}$, ..., ${x}_{M}$ by least squares; the chain rule applied to the loss gives
 
-$$
+```math
 \begin{gathered}L = \frac{1}{M} {\sum}_{m = 1}^{M} {{r}_{m}}^{2} , {r}_{m} = G ( {x}_{m} ) - f ( {x}_{m} ) \\ \frac{\partial L}{\partial p} = \frac{2}{M} {\sum}_{m = 1}^{M} {r}_{m} \  \frac{\partial G}{\partial p} ( {x}_{m} )\end{gathered} \quad  \tag{6.4}
-$$
+```
 
 where ∂G/∂p is Eq. (6.1), (6.2) or (6.3). We train a network with one input, N = 8 hidden units and an output offset c on example A, f(x) = sin(2πx) + x²/2, at M = 200 points. The gradient of Eq. (6.4) is first checked against central finite differences of the loss.
 
@@ -1446,30 +1446,30 @@ figure[{{
 
 The ideal staircase ${S}_{N}$ of Eq. (1.3) takes at x the value of f at the nearest node, which is at most 1/(2N) away. By the definition of the modulus of continuity, Eq. (M12),
 
-$$
+```math
 | {S}_{N} ( x ) - f ( x ) | \le {\omega}_{f} ( \frac{1}{2 N} ) , \text{error} \approx {\omega}_{f} ( \frac{1}{2 N} ) \quad  \tag{7.1}
-$$
+```
 
 With λ = 20 N the logistic leakage is negligible (Problem 1), so the staircase error should be close to ${\omega}_{f}$(1/(2N)). Its rate is the rate of ${\omega}_{f}$. We work ${\omega}_{f}$ out for each target.
 
 - x sin(1/x). Near a point a > 0 the function oscillates with amplitude about a, and one half-oscillation, a change of 1/x by π, takes a change of x by about π ${a}^{2}$. A window of width δ placed where π ${a}^{2}$ = δ therefore sees the full swing from +a to -a, and no better placement exists: to the left the amplitude is smaller, to the right the window covers less than a half-oscillation. So
 
-$$
+```math
 {\omega}_{f} ( \delta ) \approx 2 \sqrt{\frac{\delta}{\pi}} \quad  for \  f ( x ) = x \  \sin  ( \frac{1}{x} ) \quad  \tag{7.2}
-$$
+```
 
 - Rate prediction: ${\omega}_{f}$(1/(2N)) ≈ 2√(1/(2πN)) = 0.80/√N, so the error should fall like ${N}^{-1/2}$, one factor √2 for each doubling of N.
 - Cantor staircase. C satisfies the self-similarity C(x/3) = C(x)/2 and the symmetry C(1 - x) = 1 - C(x). An interval of length ${3}^{-k}$ rises by at most ${2}^{-k}$, and the first interval [0, ${3}^{-k}$] rises by exactly that:
 
-$$
+```math
 C ( \frac{x}{3} ) = \frac{C ( x )}{2} , C ( 1 - x ) = 1 - C ( x ) \quad  \implies \quad  {\omega}_{C} ( {3}^{- k} ) = {2}^{- k} \quad  \tag{7.3}
-$$
+```
 
 - In between, ${\omega}_{C}$(δ) stays within a factor 2 of δ to the power ln 2/ln 3 = 0.631, so C is Hölder continuous with that exponent and no better. Rate prediction:
 
-$$
+```math
 {\omega}_{C} ( \delta ) \simeq {\delta}^{\ln  \  2 / \ln  \  3} , \text{error} \sim {N}^{- 1 / 2} and {N}^{- \ln  \  2 / \ln  \  3} \quad  \tag{7.4}
-$$
+```
 
 The predictions are made. Now the measurements: first the moduli themselves, computed on a grid of 100001 points with a sliding maximum and minimum.
 
