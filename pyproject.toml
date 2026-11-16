@@ -1,7 +1,8 @@
 # © Computational Classnotes · CC BY-NC-SA 4.0
+# Python editions, version 1.0.0 (2026-11-16)
 [project]
 name = "neural-networks-things"
-version = "0.1.0"
+version = "1.0.0"
 description = "Python editions of the Computational Classnotes neural-network notebooks"
 authors = [{ name = "Dara O Shayda" }, { name = "Noor Hoshino" }]
 license = "CC-BY-NC-SA-4.0"

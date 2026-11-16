@@ -2,6 +2,8 @@
 
 © Computational Classnotes · CC BY-NC-SA 4.0
 
+Python editions version 1.0.0 (16 November 2026).
+
 The notebooks (Wolfram and Python editions), PDFs, Markdown editions, figures and code in this repository are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).
 
 - Summary: https://creativecommons.org/licenses/by-nc-sa/4.0/

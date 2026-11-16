@@ -1,3 +1,6 @@
+# neural-networks-things · Python editions version 1.0.0 (2026-11-16)
+# © Computational Classnotes · CC BY-NC-SA 4.0
+
 # Wolfram notebooks are text; show them as Mathematica on GitHub
 *.nb linguist-language=Mathematica
 *.wl linguist-language=Mathematica

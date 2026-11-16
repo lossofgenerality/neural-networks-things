@@ -56,6 +56,8 @@ The seven exercises of section 8, each stated and solved with derivations, numer
 
 ## Using the Python editions
 
+Current version of the Python editions: **1.0.0** (16 November 2026).
+
 The `.ipynb` notebooks are Python ports of the Wolfram notebooks, with the same text, the same numbering of sections, equations, figures, tables and theorems, and the same cell indices, written as `# c.7`. They use only free, open-source software: NumPy, SciPy, SymPy, Matplotlib, NetworkX, ipywidgets, Pillow, requests and PyTorch. GitHub shows them with their outputs; there are two ways to run them.
 
 ### In the browser, with nothing to install
@@ -74,6 +76,11 @@ uv run jupyter lab
 ```
 
 Open a notebook and choose Kernel → Restart Kernel and Run All Cells.
+
+### Documentation
+
+- [Running the Python environment: a guide for programmers](docs/python-environment-guide.md): the tools, when to use each, macOS and GitHub, common tasks and troubleshooting.
+- [Python port: setup log](docs/python-setup-log.md): everything installed for the Python port, step by step, with the problems met and how they were fixed.
 
 ### Notes
 
