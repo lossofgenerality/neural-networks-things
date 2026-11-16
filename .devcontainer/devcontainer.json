@@ -2,7 +2,7 @@
   // GitHub Codespaces: Python 3.14 and the libraries of uv.lock, with the Jupyter extension.
   // © Computational Classnotes · CC BY-NC-SA 4.0
   // Python editions, version 1.0.0 (2026-11-16)
-  "name": "Neural Networks · Computational Classnotes (Python 3.14)",
+  "name": "Neural Networks Things · Computational Classnotes (Python 3.14)",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
   "hostRequirements": { "cpus": 2 },
   "postCreateCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh && $HOME/.local/bin/uv sync",

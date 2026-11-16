@@ -1,4 +1,4 @@
-# Neural Networks · Computational Classnotes
+# Neural Networks Things · Computational Classnotes
 
 Wolfram Language notebooks on the mathematics of neural networks, from S-shaped activation functions and universal approximation to recurrent layers built from scratch, with Python editions of the S Shape Functions notebooks. Each notebook is self-contained: it explains the ideas, states the results, and checks every formula with code you can run.
 
