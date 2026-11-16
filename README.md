@@ -1,6 +1,6 @@
 # Neural Networks · Computational Classnotes
 
-Wolfram Language notebooks on the mathematics of neural networks, from S-shaped activation functions and universal approximation to recurrent layers built from scratch. Each notebook is self-contained: it explains the ideas, states the results, and checks every formula with code you can run.
+Wolfram Language notebooks on the mathematics of neural networks, from S-shaped activation functions and universal approximation to recurrent layers built from scratch, with Python editions of the S Shape Functions notebooks. Each notebook is self-contained: it explains the ideas, states the results, and checks every formula with code you can run.
 
 ## Contents
 
@@ -22,6 +22,7 @@ S-shaped functions rise from 0 to 1 around a threshold. The notebook follows the
 | [`S-Shape-Functions-Theory.nb`](s-shape-functions-theory/S-Shape-Functions-Theory.nb) | The Wolfram notebook (Wolfram 15) |
 | [`S-Shape-Functions-Theory.pdf`](s-shape-functions-theory/S-Shape-Functions-Theory.pdf) | Printed version, A4 |
 | [`S-Shape-Functions-Theory.md`](s-shape-functions-theory/S-Shape-Functions-Theory.md) | Markdown edition with LaTeX equations and figures |
+| [`S-Shape-Functions-Theory.ipynb`](s-shape-functions-theory/S-Shape-Functions-Theory.ipynb) | Python edition, a Jupyter notebook (Python 3.14), evaluated |
 
 - **Notebook online:** https://www.wolframcloud.com/obj/ccn2/Published/S_Shape_Functions_Theory.nb
 - **CCN Node:** https://discuss.compclassnotes.com/t/s-shape-functions-theory/522
@@ -36,6 +37,7 @@ The seven exercises of section 8, each stated and solved with derivations, numer
 | [`S-Shape-Functions-Solved-Exercises.nb`](s-shape-functions-theory/S-Shape-Functions-Solved-Exercises.nb) | The Wolfram notebook, evaluated (Wolfram 15) |
 | [`S-Shape-Functions-Solved-Exercises.pdf`](s-shape-functions-theory/S-Shape-Functions-Solved-Exercises.pdf) | Printed version, A4 |
 | [`S-Shape-Functions-Solved-Exercises.md`](s-shape-functions-theory/S-Shape-Functions-Solved-Exercises.md) | Markdown edition with LaTeX equations, tables and the Wolfram figures |
+| [`S-Shape-Functions-Solved-Exercises.ipynb`](s-shape-functions-theory/S-Shape-Functions-Solved-Exercises.ipynb) | Python edition, a Jupyter notebook (Python 3.14, PyTorch for Problem 5), evaluated |
 
 ### [BasicRecurrentLayer](basic-recurrent-layer/)
 
@@ -51,6 +53,32 @@ The seven exercises of section 8, each stated and solved with derivations, numer
 - Every code cell starts with an index comment such as `(*c.7*)`, so cells can be referred to by number.
 - Each notebook keeps its variables in a private context, so notebooks open in the same session do not interfere with each other.
 - The small organism photos in section 0 of S Shape Functions Theory are loaded from Wikimedia Commons when their cells run, so those cells need an internet connection.
+
+## Using the Python editions
+
+The `.ipynb` notebooks are Python ports of the Wolfram notebooks, with the same text, the same numbering of sections, equations, figures, tables and theorems, and the same cell indices, written as `# c.7`. They use only free, open-source software: NumPy, SciPy, SymPy, Matplotlib, NetworkX, ipywidgets, Pillow, requests and PyTorch. GitHub shows them with their outputs; there are two ways to run them.
+
+### In the browser, with nothing to install
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/lossofgenerality/neural-networks-things?quickstart=1)
+
+Click the button and then **Create codespace**. GitHub starts a small Linux machine with Python 3.14 and the libraries of `uv.lock`; the first start takes a few minutes. The main notebook opens by itself: click **Run All** at the top of the notebook, and if you are asked for a kernel, choose `.venv`. Personal GitHub accounts include a free monthly allowance of Codespaces time, far more than these notebooks need. Stop the codespace when you are done (github.com/codespaces → ··· → Stop codespace).
+
+### On your own computer
+
+Install [uv](https://docs.astral.sh/uv/) and, in the folder of this repository:
+
+```
+uv sync            # Python 3.14 and the exact library versions of uv.lock, in .venv
+uv run jupyter lab
+```
+
+Open a notebook and choose Kernel → Restart Kernel and Run All Cells.
+
+### Notes
+
+- The slider of Figure 2 works only in a running notebook.
+- Random numbers come from NumPy and PyTorch, so the values that depend on random weights (section 5 of the main notebook; Problems 3, 5 and 6 of the exercises) differ slightly from the Wolfram runs, and the text of the Python editions gives the values of the Python run. Everything else agrees with the Wolfram results.
 
 ## License
 
