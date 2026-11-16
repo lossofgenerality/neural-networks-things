@@ -40,15 +40,19 @@ https://wiki.compclassnotes.com/books/neural-networks/page/s-shape-functions-the
 (*c.0*)
 figFont = 14;   (* font size in figures and diagrams *)
 tabFont = 10;   (* font size in tables *)
-wFull = 440;    (* width of a full-width figure in points; A4 text width is about 487 *)
+wFull = 440;    (* full figure width in points; A4 text width is ~487 *)
 wHalf = 215;    (* width of each panel in a two-column figure *)
 figStyle = Directive[Black, FontSize -> figFont];
 table[rows_, label_] := Labeled[
-   Grid[rows, Frame -> All, Alignment -> Left, BaseStyle -> {FontSize -> tabFont},
-    Spacings -> {0.8, 0.5}, Background -> {None, {1 -> GrayLevel[0.92]}}],
+   Grid[rows, Frame -> All, Alignment -> Left,
+    BaseStyle -> {FontSize -> tabFont}, Spacings -> {0.8, 0.5},
+    Background -> {None, {1 -> GrayLevel[0.92]}}],
    Style[label, Bold, FontSize -> tabFont + 1], Top];
-commonsImage[file_, w_ : 160] := Quiet@Check[   (* small photo from Wikimedia Commons; needs internet *)
-   ImageResize[Import["https://commons.wikimedia.org/wiki/Special:FilePath/" <> URLEncode[file] <> "?width=400"], w],
+(* small photo from Wikimedia Commons; needs internet *)
+commonsURL = "https://commons.wikimedia.org/wiki/Special:FilePath/";
+commonsImage[file_, w_ : 160] := Quiet@Check[
+   ImageResize[
+    Import[commonsURL <> URLEncode[file] <> "?width=400"], w],
    Style["(photo not available offline)", Gray]];
 ```
 
@@ -143,7 +147,8 @@ rtf = 26.7;   (* RT/F at 37 °C, in mV *)
 pOpen[v_, vHalf_, z_] := LogisticSigmoid[z (v - vHalf)/rtf];
 Plot[Evaluate@Table[pOpen[v, -30, z], {z, {1, 2, 4, 6}}], {v, -120, 60},
  AxesLabel -> {"V (mV)", "P"}, PlotLabel -> "Figure 0.1. Voltage gating",
- PlotLegends -> Placed[LineLegend[{"z = 1", "z = 2", "z = 4", "z = 6"}, LabelStyle -> figStyle], Below],
+ PlotLegends -> Placed[LineLegend[{"z = 1", "z = 2", "z = 4", "z = 6"},
+    LabelStyle -> figStyle], Below],
  LabelStyle -> figStyle, ImageSize -> wFull]
 ```
 
@@ -176,11 +181,16 @@ The second form shows that the Hill curve is the logistic function of the logari
 (*c.0.2*)
 hill[p_, p50_, n_] := (p/p50)^n/(1 + (p/p50)^n);
 Print["Hill form = logistic of log P: ",
-  FullSimplify[hill[p, p50, n] == LogisticSigmoid[n Log[p/p50]], p > 0 && p50 > 0 && n > 0]];
-Print["hemoglobin saturation at 40 and 100 mmHg: ", {hill[40., 26.8, 2.7], hill[100., 26.8, 2.7]}];
-Plot[{hill[p, 26.8, 2.7], hill[p, 2.8, 1]}, {p, 0, 120}, PlotRange -> {0, 1.02}, GridLines -> {{40, 100}, None},
+  FullSimplify[hill[p, p50, n] == LogisticSigmoid[n Log[p/p50]],
+   p > 0 && p50 > 0 && n > 0]];
+Print["hemoglobin saturation at 40 and 100 mmHg: ",
+  {hill[40., 26.8, 2.7], hill[100., 26.8, 2.7]}];
+Plot[{hill[p, 26.8, 2.7], hill[p, 2.8, 1]}, {p, 0, 120},
+ PlotRange -> {0, 1.02}, GridLines -> {{40, 100}, None},
  AxesLabel -> {"P (mmHg)", "S"}, PlotLabel -> "Figure 0.2. Oxygen binding",
- PlotLegends -> Placed[LineLegend[{"hemoglobin, n = 2.7", "myoglobin, n = 1"}, LabelStyle -> figStyle], Below],
+ PlotLegends -> Placed[
+   LineLegend[{"hemoglobin, n = 2.7", "myoglobin, n = 1"},
+    LabelStyle -> figStyle], Below],
  LabelStyle -> figStyle, ImageSize -> wFull]
 ```
 
@@ -214,14 +224,19 @@ An exponential gradient fed into a Hill function gives exactly a logistic functi
 ```wolfram
 (*c.0.3*)
 Print["Hill of exponential = logistic: ",
-  FullSimplify[(b Exp[-x/l])^h/((b Exp[-x/l])^h + b0^h) == LogisticSigmoid[-(h/l) (x - l Log[b/b0])],
+  FullSimplify[(b Exp[-x/l])^h/((b Exp[-x/l])^h + b0^h) ==
+    LogisticSigmoid[-(h/l) (x - l Log[b/b0])],
    b > 0 && b0 > 0 && l > 0 && h > 0 && x ∈ Reals]];
-λb = 0.2; x0 = 0.5;   (* decay length and boundary, as fractions of the embryo length *)
+(* decay length and boundary, as fractions of the embryo length *)
+λb = 0.2; x0 = 0.5;
 hb[x_, h_] := LogisticSigmoid[-(h/λb) (x - x0)];
-Plot[Evaluate@Join[{Exp[-x/λb]}, Table[hb[x, h], {h, {1, 3, 5}}]], {x, 0, 1},
+Plot[Evaluate@Join[{Exp[-x/λb]}, Table[hb[x, h], {h, {1, 3, 5}}]],
+ {x, 0, 1},
  PlotStyle -> {Dashed, Automatic, Automatic, Automatic},
- AxesLabel -> {"x/L", "level"}, PlotLabel -> "Figure 0.3. Bicoid → hunchback",
- PlotLegends -> Placed[LineLegend[{"Bicoid", "H = 1", "H = 3", "H = 5"}, LabelStyle -> figStyle], Below],
+ AxesLabel -> {"x/L", "level"},
+ PlotLabel -> "Figure 0.3. Bicoid → hunchback",
+ PlotLegends -> Placed[LineLegend[{"Bicoid", "H = 1", "H = 3", "H = 5"},
+    LabelStyle -> figStyle], Below],
  LabelStyle -> figStyle, ImageSize -> wFull]
 ```
 
@@ -249,16 +264,20 @@ Seen from a fixed point x > 0, the concentration starts flat, rises, and saturat
 (*c.0.4*)
 dC = 1000.;   (* diffusion coefficient in μm^2/s *)
 cdiff[x_, t_] := Erfc[x/(2 Sqrt[dC t])]/2;
-Print["Eq. (0.4), erfc = reflected erf sigmoid: ", FullSimplify[Erfc[s]/2 == 1 - (1 + Erf[s])/2]];
+Print["Eq. (0.4), erfc = reflected erf sigmoid: ",
+  FullSimplify[Erfc[s]/2 == 1 - (1 + Erf[s])/2]];
 Labeled[
  Grid[{{
     Plot[Evaluate@Table[cdiff[x, t], {t, {0.1, 1, 10}}], {x, -300, 300},
-     Ticks -> {{-200, 0, 200}, Automatic}, AxesLabel -> {"x", "C/C0"}, PlotLabel -> "0.4a. profile",
-     PlotLegends -> Placed[LineLegend[{"0.1 s", "1 s", "10 s"}, LabelStyle -> figStyle], Below],
+     Ticks -> {{-200, 0, 200}, Automatic}, AxesLabel -> {"x", "C/C0"},
+     PlotLabel -> "0.4a. profile",
+     PlotLegends -> Placed[LineLegend[{"0.1 s", "1 s", "10 s"},
+        LabelStyle -> figStyle], Below],
      LabelStyle -> figStyle, ImageSize -> wHalf],
     LogLinearPlot[cdiff[100, t], {t, 0.1, 1000}, PlotRange -> {0, 0.55},
-     Ticks -> {{0.1, 1, 10, 100, 1000}, Automatic}, AxesLabel -> {"t (s)", "C/C0"},
-     PlotLabel -> "0.4b. at x = 100", LabelStyle -> figStyle, ImageSize -> wHalf]}}],
+     Ticks -> {{0.1, 1, 10, 100, 1000}, Automatic},
+     AxesLabel -> {"t (s)", "C/C0"}, PlotLabel -> "0.4b. at x = 100",
+     LabelStyle -> figStyle, ImageSize -> wHalf]}}],
  Style["Figure 0.4. Diffusion", figFont], Top]
 ```
 
@@ -291,10 +310,13 @@ Figure 0.5 uses values fitted to Gause's data for Paramecium aurelia grown alone
 (*c.0.5*)
 logistic[t_, n0_, r_, k_] := k/(1 + (k - n0)/n0 Exp[-r t]);
 Print["Eq. (0.5), logistic form: ",
-  FullSimplify[logistic[t, n0, r, k] == k LogisticSigmoid[r (t - Log[(k - n0)/n0]/r)], k > n0 > 0 && r > 0]];
+  FullSimplify[
+   logistic[t, n0, r, k] == k LogisticSigmoid[r (t - Log[(k - n0)/n0]/r)],
+   k > n0 > 0 && r > 0]];
 Plot[logistic[t, 0.6, 0.8, 230], {t, 0, 25}, GridLines -> {None, {230}},
  GridLinesStyle -> Dashed, AxesLabel -> {"t (days)", "N"},
- PlotLabel -> "Figure 0.5. Paramecium aurelia", LabelStyle -> figStyle, ImageSize -> wFull]
+ PlotLabel -> "Figure 0.5. Paramecium aurelia", LabelStyle -> figStyle,
+ ImageSize -> wFull]
 ```
 
 **Output (Wolfram run):** `True`
@@ -325,10 +347,13 @@ This is the Hill equation (0.2) again, in a new place: biology reuses the same S
 ```wolfram
 (*c.0.6*)
 naka[c_, n_, c50_] := c^n/(c^n + c50^n);
-LogLinearPlot[Evaluate@Table[naka[c, n, 0.2], {n, {1, 2, 4}}], {c, 0.005, 1},
- Ticks -> {{0.01, 0.1, 1}, Automatic}, AxesLabel -> {"contrast c", "R/Rmax"},
+LogLinearPlot[Evaluate@Table[naka[c, n, 0.2], {n, {1, 2, 4}}],
+ {c, 0.005, 1},
+ Ticks -> {{0.01, 0.1, 1}, Automatic},
+ AxesLabel -> {"contrast c", "R/Rmax"},
  PlotLabel -> "Figure 0.6. Visual neuron",
- PlotLegends -> Placed[LineLegend[{"n = 1", "n = 2", "n = 4"}, LabelStyle -> figStyle], Below],
+ PlotLegends -> Placed[LineLegend[{"n = 1", "n = 2", "n = 4"},
+    LabelStyle -> figStyle], Below],
  LabelStyle -> figStyle, ImageSize -> wFull]
 ```
 
@@ -399,8 +424,10 @@ sig = <|
 ```wolfram
 (*c.2*)
 table[Prepend[
-  Table[{k, Limit[sig[k][t], t -> -Infinity], Limit[sig[k][t], t -> Infinity]}, {k, Keys[sig]}],
-  {"function", "t → -∞", "t → +∞"}], "Table 1"]
+  Table[{k, Limit[sig[k][t], t -> -Infinity],
+    Limit[sig[k][t], t -> Infinity]}, {k, Keys[sig]}],
+  {"function", "t → -∞", "t → +∞"}],
+ "Table 1"]
 ```
 
 **Table 1**
@@ -423,7 +450,8 @@ table[Prepend[
 Plot[Evaluate[Through[Values[sig][t]]], {t, -6, 6},
  PlotRange -> {-0.05, 1.05}, AxesLabel -> {"t", "σ(t)"},
  PlotLabel -> "Figure 1. S-shaped functions", LabelStyle -> figStyle,
- PlotLegends -> Placed[LineLegend[Keys[sig], LabelStyle -> Directive[figFont - 2],
+ PlotLegends -> Placed[
+   LineLegend[Keys[sig], LabelStyle -> Directive[figFont - 2],
     LegendLayout -> {"Column", 2}], Below],
  ImageSize -> wFull]
 ```
@@ -448,7 +476,8 @@ Both identities of Eq. (2), checked:
 
 ```wolfram
 (*c.4*)
-FullSimplify[D[LogisticSigmoid[t], t] == LogisticSigmoid[t] (1 - LogisticSigmoid[t])]
+FullSimplify[
+ D[LogisticSigmoid[t], t] == LogisticSigmoid[t] (1 - LogisticSigmoid[t])]
 Simplify[TrigToExp[Tanh[t]] == 2/(1 + Exp[-2 t]) - 1]
 ```
 
@@ -465,8 +494,10 @@ Steepness turns the smooth step back into the hard one. As λ grows, σ(λ t) ap
 Manipulate[
  Plot[{LogisticSigmoid[λ t], UnitStep[t]}, {t, -3, 3},
   PlotRange -> {-0.05, 1.05}, PlotStyle -> {Thick, Dashed},
-  PlotLegends -> Placed[LineLegend[{"σ(λt)", "step"}, LabelStyle -> figStyle], Below],
-  PlotLabel -> "Figure 2. Steep sigmoid → step", LabelStyle -> figStyle, ImageSize -> wFull],
+  PlotLegends -> Placed[LineLegend[{"σ(λt)", "step"},
+     LabelStyle -> figStyle], Below],
+  PlotLabel -> "Figure 2. Steep sigmoid → step",
+  LabelStyle -> figStyle, ImageSize -> wFull],
  {{λ, 1}, 0.2, 50}]
 ```
 
@@ -489,17 +520,23 @@ Eq. (3) is exactly a neural network with one hidden layer of N units: unit j com
 ```wolfram
 (*c.6*)
 nH = 3;
-inE = Flatten@Table[DirectedEdge[Subscript["x", i], Subscript["h", j]], {i, 2}, {j, nH}];
+inE = Flatten@Table[DirectedEdge[Subscript["x", i], Subscript["h", j]],
+    {i, 2}, {j, nH}];
 outE = Table[DirectedEdge[Subscript["h", j], "G"], {j, nH}];
 edgeLbl = Join[
    Flatten@Table[DirectedEdge[Subscript["x", i], Subscript["h", j]] ->
-      Placed[Subscript["y", ToString[j] <> ToString[i]], 0.78], {i, 2}, {j, nH}],
-   Table[DirectedEdge[Subscript["h", j], "G"] -> Placed[Subscript["α", j], 0.5], {j, nH}]];
+      Placed[Subscript["y", ToString[j] <> ToString[i]], 0.78],
+     {i, 2}, {j, nH}],
+   Table[DirectedEdge[Subscript["h", j], "G"] ->
+     Placed[Subscript["α", j], 0.5], {j, nH}]];
 coords = {Subscript["x", 1] -> {0, 2.2}, Subscript["x", 2] -> {0, 0.8},
-   Subscript["h", 1] -> {3, 3}, Subscript["h", 2] -> {3, 1.5}, Subscript["h", 3] -> {3, 0}, "G" -> {6, 1.5}};
+   Subscript["h", 1] -> {3, 3}, Subscript["h", 2] -> {3, 1.5},
+   Subscript["h", 3] -> {3, 0}, "G" -> {6, 1.5}};
 Graph[Join[inE, outE], VertexCoordinates -> coords,
- VertexLabels -> Placed["Name", Above], VertexLabelStyle -> Directive[Black, figFont],
- EdgeLabels -> edgeLbl, EdgeLabelStyle -> Directive[figFont, Darker[Red], Background -> White],
+ VertexLabels -> Placed["Name", Above],
+ VertexLabelStyle -> Directive[Black, figFont],
+ EdgeLabels -> edgeLbl,
+ EdgeLabelStyle -> Directive[figFont, Darker[Red], Background -> White],
  VertexSize -> 0.25, EdgeStyle -> Arrowheads[0.03], ImageSize -> wFull,
  PlotLabel -> Style["Figure 3. One hidden layer, N = 3", figFont]]
 ```
@@ -547,7 +584,8 @@ Module[{Yw, th, al, gNet, x0, auto, z, pathSum, u, v},
  auto = D[gNet[u, v], {{u, v}}] /. {u -> x0[[1]], v -> x0[[2]]};
  z = Yw . x0 + th;
  pathSum = Table[
-   Sum[al[[j]] LogisticSigmoid[z[[j]]] (1 - LogisticSigmoid[z[[j]]]) Yw[[j, i]], {j, 3}],
+   Sum[al[[j]] LogisticSigmoid[z[[j]]] (1 - LogisticSigmoid[z[[j]]]) *
+     Yw[[j, i]], {j, 3}],
    {i, 2}];
  <|"automatic" -> auto, "path sum, Eq. (5)" -> pathSum,
   "difference" -> Max@Abs[auto - pathSum]|>]
@@ -610,10 +648,13 @@ Eq. (7) is a special case of Eq. (3), with n = 1, ${y}_{k}$ = λ, ${\theta}_{k}$
 (*c.8*)
 f[x_] := Sin[2 Pi x] + x^2/2;
 stair[fun_, n_, λ_][x_] := fun[0] +
-   Sum[(fun[k/n] - fun[(k - 1)/n]) LogisticSigmoid[λ (x - (k - 1/2)/n)], {k, 1, n}];
+   Sum[(fun[k/n] - fun[(k - 1)/n]) *
+     LogisticSigmoid[λ (x - (k - 1/2)/n)], {k, 1, n}];
 Plot[{f[x], stair[f, 10, 200][x]}, {x, 0, 1},
- PlotLegends -> Placed[LineLegend[{"f", Subscript["G", 10]}, LabelStyle -> figStyle], Below],
- PlotLabel -> "Figure 4. Example A, N = 10", LabelStyle -> figStyle, ImageSize -> wFull]
+ PlotLegends -> Placed[LineLegend[{"f", Subscript["G", 10]},
+    LabelStyle -> figStyle], Below],
+ PlotLabel -> "Figure 4. Example A, N = 10", LabelStyle -> figStyle,
+ ImageSize -> wFull]
 ```
 
 <img alt="c.8" src="figures/f4.png" width="600">
@@ -624,8 +665,10 @@ Measure the uniform (sup-norm) error on a fine grid, with steepness λ = 20N:
 
 ```wolfram
 (*c.9*)
-supErr[fun_, n_] := Quiet@Max@Table[Abs[fun[x] - stair[fun, n, 20 n][x]], {x, 0., 1., 0.0005}];
-table[Prepend[Table[{n, supErr[f, n]}, {n, {5, 10, 20, 40, 80}}], {"N", "max error"}], "Table 2"]
+supErr[fun_, n_] := Quiet@Max@Table[
+    Abs[fun[x] - stair[fun, n, 20 n][x]], {x, 0., 1., 0.0005}];
+table[Prepend[Table[{n, supErr[f, n]}, {n, {5, 10, 20, 40, 80}}],
+  {"N", "max error"}], "Table 2"]
 ```
 
 **Table 2**
@@ -659,13 +702,15 @@ examples = <|
    "C" -> (Sqrt[#] &),
    "D" -> (Exp[-200 (# - 1/2)^2] &),
    "E" -> (UnitStep[# - 0.3] &)|>;
-exampleNames = <|"A" -> "sin(2πx) + x²/2", "B" -> "|x - 1/2|", "C" -> "√x",
-   "D" -> "narrow bump", "E" -> "step at 0.3"|>;
+exampleNames = <|"A" -> "sin(2πx) + x²/2", "B" -> "|x - 1/2|",
+   "C" -> "√x", "D" -> "narrow bump", "E" -> "step at 0.3"|>;
 Labeled[
  Grid[Partition[
    KeyValueMap[
-    Plot[{#2[x], stair[#2, 10, 200][x]}, {x, 0, 1}, PlotRange -> All, Exclusions -> None,
-      PlotLabel -> #1 <> ": " <> exampleNames[#1], LabelStyle -> figStyle, ImageSize -> wHalf] &,
+    Plot[{#2[x], stair[#2, 10, 200][x]}, {x, 0, 1},
+      PlotRange -> All, Exclusions -> None,
+      PlotLabel -> #1 <> ": " <> exampleNames[#1],
+      LabelStyle -> figStyle, ImageSize -> wHalf] &,
     examples], 2]],
  Style["Figure 5. Examples B–E, N = 10", figFont], Top]
 ```
@@ -678,7 +723,9 @@ Labeled[
 (*c.11*)
 allExamples = Prepend[examples, "A" -> f];
 table[Prepend[
-  KeyValueMap[Prepend[Table[NumberForm[supErr[#2, n], 2], {n, {5, 10, 20, 40, 80}}], #1] &,
+  KeyValueMap[
+   Prepend[Table[NumberForm[supErr[#2, n], 2], {n, {5, 10, 20, 40, 80}}],
+     #1] &,
    allExamples],
   {"", "N = 5", "N = 10", "N = 20", "N = 40", "N = 80"}], "Table 3"]
 ```
@@ -714,7 +761,8 @@ The target is a smooth function of two variables. First, look at it:
 g[x_, y_] := Sin[Pi x] Cos[Pi y];
 Plot3D[g[x, y], {x, -1, 1}, {y, -1, 1},
  AxesLabel -> {"x", "y", "g"}, ColorFunction -> "TemperatureMap",
- PlotLabel -> "Figure 6. Target g(x, y)", LabelStyle -> figStyle, ImageSize -> 0.8 wFull]
+ PlotLabel -> "Figure 6. Target g(x, y)", LabelStyle -> figStyle,
+ ImageSize -> 0.8 wFull]
 ```
 
 <img alt="c.12" src="figures/f6.png" width="520">
@@ -726,8 +774,10 @@ In practice the inner weights ${y}_{j}$, ${\theta}_{j}$ are not placed by hand. 
 SeedRandom[3];
 trainPts = RandomReal[{-1, 1}, {2000, 2}];
 testPts = RandomReal[{-1, 1}, {2000, 2}];
-hidden[pts_, Yin_, th_] := LogisticSigmoid[pts . Transpose[Yin] + ConstantArray[th, Length[pts]]];
-fit[nh_] := Module[{Yr = RandomReal[{-6, 6}, {nh, 2}], th = RandomReal[{-6, 6}, nh], a},
+hidden[pts_, Yin_, th_] :=
+  LogisticSigmoid[pts . Transpose[Yin] + ConstantArray[th, Length[pts]]];
+fit[nh_] := Module[
+   {Yr = RandomReal[{-6, 6}, {nh, 2}], th = RandomReal[{-6, 6}, nh], a},
    a = LeastSquares[hidden[trainPts, Yr, th], g @@@ trainPts];
    {Yr, th, a}];
 ```
@@ -738,7 +788,8 @@ fit[nh_] := Module[{Yr = RandomReal[{-6, 6}, {nh, 2}], th = RandomReal[{-6, 6}, 
 (*c.14*)
 table[Prepend[
   Table[With[{m = fit[nh]},
-    {nh, Max@Abs[hidden[testPts, m[[1]], m[[2]]] . m[[3]] - g @@@ testPts]}],
+    {nh, Max@Abs[
+       hidden[testPts, m[[1]], m[[2]]] . m[[3]] - g @@@ testPts]}],
    {nh, {10, 50, 200}}],
   {"N", "max test error"}], "Table 4"]
 ```
@@ -760,13 +811,17 @@ In a test run the maximum error went from about 1 with N = 10, to under 0.1 with
 (*c.15*)
 With[{m = fit[100]},
  Module[{G100},
-  G100[x_?NumericQ, y_?NumericQ] := First[hidden[{{x, y}}, m[[1]], m[[2]]] . m[[3]]];
+  G100[x_?NumericQ, y_?NumericQ] :=
+   First[hidden[{{x, y}}, m[[1]], m[[2]]] . m[[3]]];
   Labeled[
    Grid[{{
-      Plot3D[G100[x, y], {x, -1, 1}, {y, -1, 1}, ColorFunction -> "TemperatureMap",
-       PlotLabel -> "7a. fit, N = 100", LabelStyle -> figStyle, ImageSize -> wHalf],
-      Plot3D[g[x, y] - G100[x, y], {x, -1, 1}, {y, -1, 1}, PlotRange -> All,
-       PlotLabel -> "7b. error g - G", LabelStyle -> figStyle, ImageSize -> wHalf]}}],
+      Plot3D[G100[x, y], {x, -1, 1}, {y, -1, 1},
+       ColorFunction -> "TemperatureMap",
+       PlotLabel -> "7a. fit, N = 100", LabelStyle -> figStyle,
+       ImageSize -> wHalf],
+      Plot3D[g[x, y] - G100[x, y], {x, -1, 1}, {y, -1, 1},
+       PlotRange -> All, PlotLabel -> "7b. error g - G",
+       LabelStyle -> figStyle, ImageSize -> wHalf]}}],
    Style["Figure 7", figFont], Top]]]
 ```
 
@@ -776,7 +831,7 @@ With[{m = fit[100]},
 
 ### Background: Hilbert's 13th problem
 
-In 1900 Hilbert asked whether the roots of the degree-7 equation x· + a x³ + b x² + c x + 1 = 0, a function of three variables (a, b, c), can be written as a composition of functions of only two variables. He conjectured that they cannot. The continuous version of the question was settled in the opposite direction:
+In 1900 Hilbert asked whether the roots of the degree-7 equation x⁷ + a x³ + b x² + c x + 1 = 0, a function of three variables (a, b, c), can be written as a composition of functions of only two variables. He conjectured that they cannot. The continuous version of the question was settled in the opposite direction:
 
 - 1956: Kolmogorov shows that every continuous function of several variables is a finite superposition of continuous functions of three variables.
 - 1957: Arnold, then 19 and Kolmogorov's student, reduces this to functions of two variables, answering Hilbert's question for continuous functions.
@@ -822,8 +877,10 @@ Hecht-Nielsen (1987) pointed out that Eq. (8) is a feedforward network: one laye
 (*c.17*)
 lay = {"LayeredDigraphEmbedding", "Orientation" -> Left};
 Graph[Flatten@{
-   Table["x" <> ToString[p] -> Subscript["ψ", ToString[p] <> ToString[q]], {p, 2}, {q, 0, 4}],
-   Table[Subscript["ψ", ToString[p] <> ToString[q]] -> Subscript["Φ", q], {p, 2}, {q, 0, 4}],
+   Table["x" <> ToString[p] ->
+     Subscript["ψ", ToString[p] <> ToString[q]], {p, 2}, {q, 0, 4}],
+   Table[Subscript["ψ", ToString[p] <> ToString[q]] ->
+     Subscript["Φ", q], {p, 2}, {q, 0, 4}],
    Table[Subscript["Φ", q] -> "f", {q, 0, 4}]},
  GraphLayout -> lay, VertexLabels -> Placed["Name", Above],
  VertexLabelStyle -> Directive[Black, figFont], ImageSize -> wFull,
@@ -925,12 +982,18 @@ $$
 
 ```wolfram
 (*c.18*)
-omega[fun_, δ_] := Quiet@Module[{xs = Range[0., 1. - δ, δ/50]},
-   Max@Table[Max@Abs[fun /@ (x + Range[0., δ, δ/10]) - fun[x]], {x, xs}]];
+omega[fun_, δ_] := Quiet@Module[
+   {xs = Range[0., 1. - δ, δ/50]},
+   Max@Table[
+     Max@Abs[fun /@ (x + Range[0., δ, δ/10]) - fun[x]],
+     {x, xs}]];
 table[Prepend[
-  KeyValueMap[Prepend[Table[NumberForm[omega[#2, 1./n], 2], {n, {5, 10, 20, 40, 80}}], #1] &,
+  KeyValueMap[
+   Prepend[Table[NumberForm[omega[#2, 1./n], 2], {n, {5, 10, 20, 40, 80}}],
+     #1] &,
    allExamples],
-  {"", "δ = 1/5", "δ = 1/10", "δ = 1/20", "δ = 1/40", "δ = 1/80"}], "Table 6"]
+  {"", "δ = 1/5", "δ = 1/10", "δ = 1/20",
+   "δ = 1/40", "δ = 1/80"}], "Table 6"]
 ```
 
 **Table 6**
@@ -974,8 +1037,10 @@ Wolfram Language can test continuity with FunctionContinuous, and limits show wh
 <|
  "x sin(1/x), x → 0" -> Limit[x Sin[1/x], x -> 0],
  "sin(1/x), x → 0" -> Limit[Sin[1/x], x -> 0],
- "step, from the left" -> Limit[UnitStep[x], x -> 0, Direction -> "FromBelow"],
- "step, from the right" -> Limit[UnitStep[x], x -> 0, Direction -> "FromAbove"]|>
+ "step, from the left" ->
+  Limit[UnitStep[x], x -> 0, Direction -> "FromBelow"],
+ "step, from the right" ->
+  Limit[UnitStep[x], x -> 0, Direction -> "FromAbove"]|>
 ```
 
 **Output (Wolfram run):** x sin(1/x) → `0`; sin(1/x) → `Indeterminate`; step from the left → `0`; from the right → `1`
@@ -986,16 +1051,21 @@ The limit of x sin(1/x) is 0, which matches its value, so it is continuous at 0.
 
 ```wolfram
 (*c.21*)
-weierstrass[x_, m_ : 6] := Sum[0.5^k Cos[13^k Pi x], {k, 0, m}];  (* partial sum, a = 1/2, b = 13 *)
-panel[opts___] := Sequence[opts, LabelStyle -> figStyle, ImageSize -> wHalf];
+(* partial sum of the Weierstrass function, a = 1/2, b = 13 *)
+weierstrass[x_, m_ : 6] := Sum[0.5^k Cos[13^k Pi x], {k, 0, m}];
+panel[opts___] :=
+  Sequence[opts, LabelStyle -> figStyle, ImageSize -> wHalf];
 Labeled[
  Grid[{
    {Plot[Abs[x], {x, -1, 1}, Evaluate@panel[PlotLabel -> "9a. |x|"]],
     Plot[Sqrt[x], {x, 0, 1}, Evaluate@panel[PlotLabel -> "9b. √x"]]},
-   {Plot[x Sin[1/x], {x, -0.5, 0.5}, Evaluate@panel[PlotPoints -> 800, PlotLabel -> "9c. x sin(1/x)"]],
-    Plot[weierstrass[x], {x, 0, 1}, Evaluate@panel[PlotPoints -> 3000, MaxRecursion -> 0,
-      PlotLabel -> "9d. Weierstrass"]]},
-   {Plot[CantorStaircase[x], {x, 0, 1}, Evaluate@panel[PlotLabel -> "9e. Cantor staircase"]], ""}}],
+   {Plot[x Sin[1/x], {x, -0.5, 0.5},
+     Evaluate@panel[PlotPoints -> 800, PlotLabel -> "9c. x sin(1/x)"]],
+    Plot[weierstrass[x], {x, 0, 1},
+     Evaluate@panel[PlotPoints -> 3000, MaxRecursion -> 0,
+       PlotLabel -> "9d. Weierstrass"]]},
+   {Plot[CantorStaircase[x], {x, 0, 1},
+     Evaluate@panel[PlotLabel -> "9e. Cantor staircase"]], ""}}],
  Style["Figure 9", figFont], Top]
 ```
 
@@ -1016,13 +1086,20 @@ Labeled[
 (*c.22*)
 Labeled[
  Grid[{
-   {Plot[UnitStep[x], {x, -1, 1}, Exclusions -> {0}, ExclusionsStyle -> Dashed,
-     Epilog -> {PointSize[0.04], Point[{0, 1}], EdgeForm[Black], White, Disk[{0, 0}, Offset[4]]},
+   {Plot[UnitStep[x], {x, -1, 1}, Exclusions -> {0},
+     ExclusionsStyle -> Dashed,
+     Epilog -> {PointSize[0.04], Point[{0, 1}], EdgeForm[Black], White,
+       Disk[{0, 0}, Offset[4]]},
      Evaluate@panel[PlotLabel -> "10a. step: jump"]],
-    Plot[Sin[1/x], {x, -0.5, 0.5}, Evaluate@panel[PlotPoints -> 800, PlotLabel -> "10b. sin(1/x)"]]},
-   {ListPlot[DeleteDuplicates@Flatten[Table[{p/q, 1/q}, {q, 1, 60}, {p, 0, q}], 1],
-     Evaluate@panel[PlotRange -> {0, 1.05}, PlotStyle -> PointSize[Tiny], PlotLabel -> "10c. Thomae"]],
-    Plot[1/x, {x, 0.01, 1}, Evaluate@panel[PlotRange -> {0, 40}, PlotLabel -> "10d. 1/x on (0,1]"]]}}],
+    Plot[Sin[1/x], {x, -0.5, 0.5},
+     Evaluate@panel[PlotPoints -> 800, PlotLabel -> "10b. sin(1/x)"]]},
+   {ListPlot[
+     DeleteDuplicates@Flatten[Table[{p/q, 1/q}, {q, 1, 60}, {p, 0, q}], 1],
+     Evaluate@panel[PlotRange -> {0, 1.05}, PlotStyle -> PointSize[Tiny],
+       PlotLabel -> "10c. Thomae"]],
+    Plot[1/x, {x, 0.01, 1},
+     Evaluate@panel[PlotRange -> {0, 40},
+       PlotLabel -> "10d. 1/x on (0,1]"]]}}],
  Style["Figure 10", figFont], Top]
 ```
 
