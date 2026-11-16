@@ -60,7 +60,7 @@ commonsImage[file_, w_ : 160] := Quiet@Check[
 
 ### Theorems
 
-- Theorem 1.  Cybenko: continuous discriminatory σ gives density in C(${I}_{n}$) (section 3)
+- Theorem 1.  Cybenko: continuous discriminatory σ gives density in C($`{I}_{n}`$) (section 3)
 - Lemma 1.  Cybenko: bounded measurable sigmoidals are discriminatory (section 3)
 - Theorem 2.  Cybenko: the universal approximation theorem (section 3)
 - Theorem 3.  Cybenko: decision regions (section 3)
@@ -81,7 +81,7 @@ commonsImage[file_, w_ : 160] := Quiet@Check[
 - (4)  The network of Figure 3, node by node and in matrix form (section 3)
 - (5)  The gradient as a sum over the paths of Figure 3 (section 3)
 - (6)  Definition of a discriminatory function (section 3)
-- (7)  The staircase ${G}_{N}$ built from steep sigmoids (section 4)
+- (7)  The staircase $`{G}_{N}`$ built from steep sigmoids (section 4)
 - (8)  Kolmogorov's superposition formula (section 6)
 - (9)  Cybenko's sum and Kolmogorov's formula side by side (section 7)
 - (10) Continuity at a point, the ε–δ definition (Appendix A)
@@ -116,13 +116,13 @@ commonsImage[file_, w_ : 160] := Quiet@Check[
 
 ## 0. S functions in living organisms
 
-Long before artificial neurons, nature was full of S-shaped responses. A cell, a protein or a population often reacts weakly to a small stimulus, strongly over a narrow middle range, and then saturates. This section collects six well-documented examples. Each one, written in the right variable, is exactly the logistic function σ(t) = 1/(1 + ${e}^{-t}$) of section 2, applied to a scaled and shifted input, σ(slope × (input - threshold)). That is the same building block as one hidden unit σ(y x + θ) in Cybenko's network, Eq. (3): the threshold plays the role of θ and the slope the role of y.
+Long before artificial neurons, nature was full of S-shaped responses. A cell, a protein or a population often reacts weakly to a small stimulus, strongly over a narrow middle range, and then saturates. This section collects six well-documented examples. Each one, written in the right variable, is exactly the logistic function σ(t) = 1/(1 + $`{e}^{-t}`$) of section 2, applied to a scaled and shifted input, σ(slope × (input - threshold)). That is the same building block as one hidden unit σ(y x + θ) in Cybenko's network, Eq. (3): the threshold plays the role of θ and the slope the role of y.
 
 The equations of this section are tagged (0.1)–(0.6), its figures Figure 0.1–0.6, its photos Photo 0.1–0.6, its references [0.1]–[0.15] and its code cells c.0.1–c.0.6 (photo cells c.0.1i–c.0.6i), so the numbering of the rest of the notebook is unchanged. Run c.0 first.
 
 ### 0.1 Voltage gating of ion channels
 
-Voltage-gated ion channels open and close as the membrane voltage changes, because charged parts of the protein (the voltage sensor) move in the membrane's electric field. Their open probability rises in an S-shape with voltage, and it is usually fitted with a two-state Boltzmann function [0.2, 0.3], characterized by a half-activation voltage ${V}_{1/2}$ and a slope set by the gating charge z. The same Boltzmann form is mathematically analogous to the Hill equation of 0.2.
+Voltage-gated ion channels open and close as the membrane voltage changes, because charged parts of the protein (the voltage sensor) move in the membrane's electric field. Their open probability rises in an S-shape with voltage, and it is usually fitted with a two-state Boltzmann function [0.2, 0.3], characterized by a half-activation voltage $`{V}_{1/2}`$ and a slope set by the gating charge z. The same Boltzmann form is mathematically analogous to the Hill equation of 0.2.
 
 *Photo 0.1. A squid of the genus Loligo (here the common squid, L. vulgaris). Hodgkin and Huxley measured the S-shaped gating of sodium and potassium channels on the giant axon of Loligo. Hans Hillewaert, CC BY-SA 4.0, Wikimedia Commons.*
 
@@ -137,7 +137,7 @@ commonsImage["Loligo_vulgaris.jpg"]
 {P}_{\text{open}} ( V ) = \frac{1}{1 + {e}^{- \frac{z \  F ( V - {V}_{1/2} )}{R \  T}}} = \sigma ( \frac{V - {V}_{1/2}}{k} ) , \quad  k = \frac{R \  T}{z \  F} \quad  \tag{0.1}
 ```
 
-At body temperature RT/F is about 26.7 mV, so a channel that moves z = 4 elementary charges has a slope k of about 6.7 mV: a change of a few millivolts switches it from mostly closed to mostly open. Figure 0.1 uses an illustrative ${V}_{1/2}$ = -30 mV.
+At body temperature RT/F is about 26.7 mV, so a channel that moves z = 4 elementary charges has a slope k of about 6.7 mV: a change of a few millivolts switches it from mostly closed to mostly open. Figure 0.1 uses an illustrative $`{V}_{1/2}`$ = -30 mV.
 
 *Figure 0.1. Open probability of a voltage-gated channel, Eq. (0.1), for gating charges z = 1, 2, 4 and 6. More charge gives a steeper switch.*
 
@@ -158,7 +158,7 @@ The Hodgkin–Huxley model of the nerve impulse (1952), measured on the giant ax
 
 ### 0.2 Oxygen saturation of hemoglobin
 
-Hemoglobin binds oxygen cooperatively: once one of its four sites holds O₂, the others bind more easily. The result is the S-shaped oxygen dissociation curve, described since 1910 by the Hill equation [0.4]. For normal human blood the Hill exponent n = 2.7 fits well over most of the range [0.5], with half-saturation pressure ${P}_{50}$ of about 26.8 mmHg. Myoglobin, a single-site protein, binds without cooperativity and has a hyperbolic curve (n = 1) with much higher affinity.
+Hemoglobin binds oxygen cooperatively: once one of its four sites holds O₂, the others bind more easily. The result is the S-shaped oxygen dissociation curve, described since 1910 by the Hill equation [0.4]. For normal human blood the Hill exponent n = 2.7 fits well over most of the range [0.5], with half-saturation pressure $`{P}_{50}`$ of about 26.8 mmHg. Myoglobin, a single-site protein, binds without cooperativity and has a hyperbolic curve (n = 1) with much higher affinity.
 
 *Photo 0.2. Structure of human hemoglobin (PDB 1GZX): four subunits, each with an oxygen-binding heme. Their interaction makes binding cooperative. Richard Wheeler (Zephyris), CC BY-SA 3.0, Wikimedia Commons.*
 
@@ -175,7 +175,7 @@ S ( P ) = \frac{{( P / {P}_{50} )}^{n}}{1 + {( P / {P}_{50} )}^{n}} = \sigma ( n
 
 The second form shows that the Hill curve is the logistic function of the logarithm of the pressure. On a linear pressure axis it is S-shaped only when n > 1; that is why the shape is the signature of cooperativity. The S-shape is what makes blood work: nearly full in the lungs (about 100 mmHg), yet giving up a quarter of its oxygen in resting tissue (about 40 mmHg).
 
-*Figure 0.2. Oxygen saturation of hemoglobin (n = 2.7, ${P}_{50}$ = 26.8 mmHg) and of myoglobin (n = 1, ${P}_{50}$ = 2.8 mmHg, a typical textbook value). Grid lines mark venous (40 mmHg) and arterial (100 mmHg) pressure.*
+*Figure 0.2. Oxygen saturation of hemoglobin (n = 2.7, $`{P}_{50}`$ = 26.8 mmHg) and of myoglobin (n = 1, $`{P}_{50}`$ = 2.8 mmHg, a typical textbook value). Grid lines mark venous (40 mmHg) and arterial (100 mmHg) pressure.*
 
 ```wolfram
 (*c.0.2*)
@@ -217,7 +217,7 @@ commonsImage["Drosophila_melanogaster_-_side_(aka).jpg"]
 B ( x ) = {B}_{A} {e}^{- x / \lambda} , \quad  \text{hb} ( x ) = \frac{{B}^{H}}{{B}^{H} + {B}_{0}^{H}} = \sigma ( - \frac{H}{\lambda} ( x - {x}_{0} ) ) \quad  \tag{0.3}
 ```
 
-An exponential gradient fed into a Hill function gives exactly a logistic function of position, centred at ${x}_{0}$ = λ ln(${B}_{A}$/${B}_{0}$) with width λ/H. A larger Hill coefficient H gives a sharper boundary. Figure 0.3 uses a decay length λ of a fifth of the embryo length, of the order of the 120 μm used in one recent model [0.10], and places the boundary at mid-embryo.
+An exponential gradient fed into a Hill function gives exactly a logistic function of position, centred at $`{x}_{0}`$ = λ ln($`{B}_{A}`$/$`{B}_{0}`$) with width λ/H. A larger Hill coefficient H gives a sharper boundary. Figure 0.3 uses a decay length λ of a fifth of the embryo length, of the order of the 120 μm used in one recent model [0.10], and places the boundary at mid-embryo.
 
 *Figure 0.3. The Bicoid gradient (dashed) and the hunchback response of Eq. (0.3) for H = 1, 3 and 5. Position is measured as a fraction of the embryo length, from head (0) to tail (1).*
 
@@ -248,17 +248,17 @@ Biologists describe such a gene as a switch with a dimmer that suddenly snaps on
 
 ### 0.4 Diffusion fronts and diffusion saturation
 
-Diffusion produces S-shapes in both space and time. Suppose a substance at concentration ${C}_{0}$ fills the region x < 0 and is absent from x > 0, for example a signalling molecule at the edge of a tissue. Solving Fick's second law gives an error-function front [0.11]:
+Diffusion produces S-shapes in both space and time. Suppose a substance at concentration $`{C}_{0}`$ fills the region x < 0 and is absent from x > 0, for example a signalling molecule at the edge of a tissue. Solving Fick's second law gives an error-function front [0.11]:
 
 ```math
 C ( x , t ) = \frac{{C}_{0}}{2} \  \mathrm{erfc}  ( \frac{x}{2 \sqrt{D \  t}} ) = {C}_{0} \  {\sigma}_{\mathrm{erf}} ( - \frac{x}{2 \sqrt{D \  t}} ) \quad  \tag{0.4}
 ```
 
-Here ${\sigma}_{\mathrm{erf}}$(s) = (1 + erf s)/2 is the error-function sigmoid of Figure 1. The front has width of the order of the diffusion length 2√(D t), which grows only like the square root of time. With a constant source at the boundary of a half-space, the profile is the complementary error function itself.
+Here $`{\sigma}_{\mathrm{erf}}`$(s) = (1 + erf s)/2 is the error-function sigmoid of Figure 1. The front has width of the order of the diffusion length 2√(D t), which grows only like the square root of time. With a constant source at the boundary of a half-space, the profile is the complementary error function itself.
 
-Seen from a fixed point x > 0, the concentration starts flat, rises, and saturates towards ${C}_{0}$/2: an S-shaped curve in time, which is clearest on a logarithmic time axis. This is diffusion saturation. A related case is uptake through carriers in a cell membrane, which saturates hyperbolically with concentration (Michaelis–Menten kinetics) and looks S-shaped on a logarithmic concentration axis.
+Seen from a fixed point x > 0, the concentration starts flat, rises, and saturates towards $`{C}_{0}`$/2: an S-shaped curve in time, which is clearest on a logarithmic time axis. This is diffusion saturation. A related case is uptake through carriers in a cell membrane, which saturates hyperbolically with concentration (Michaelis–Menten kinetics) and looks S-shaped on a logarithmic concentration axis.
 
-*Figure 0.4. (a) Concentration profiles of Eq. (0.4) after 0.1 s, 1 s and 10 s, with x in μm. (b) Concentration at x = 100 μm against time on a logarithmic axis. D = 1000 μm²/s (${10}^{-9}$ m²/s), of the order of a small molecule in water.*
+*Figure 0.4. (a) Concentration profiles of Eq. (0.4) after 0.1 s, 1 s and 10 s, with x in μm. (b) Concentration at x = 100 μm against time on a logarithmic axis. D = 1000 μm²/s ($`{10}^{-9}`$ m²/s), of the order of a small molecule in water.*
 
 ```wolfram
 (*c.0.4*)
@@ -302,7 +302,7 @@ commonsImage["Paramecium.jpg"]
 \frac{d N}{d t} = r \  N ( 1 - \frac{N}{K} ) \quad  \implies \quad  N ( t ) = K \  \sigma ( r ( t - {t}_{1/2} ) ) , \quad  {t}_{1/2} = \frac{\ln  ( ( K - {N}_{0} ) / {N}_{0} )}{r} \quad  \tag{0.5}
 ```
 
-Figure 0.5 uses values fitted to Gause's data for Paramecium aurelia grown alone: ${N}_{0}$ = 0.6, r = 0.8 per day and K = 230, with population measured as a standardized volume [0.13].
+Figure 0.5 uses values fitted to Gause's data for Paramecium aurelia grown alone: $`{N}_{0}`$ = 0.6, r = 0.8 per day and K = 230, with population measured as a standardized volume [0.13].
 
 *Figure 0.5. Logistic growth of Paramecium aurelia, Eq. (0.5). The dashed line is the carrying capacity K.*
 
@@ -340,7 +340,7 @@ commonsImage["Cat_November_2010-1a.jpg"]
 R ( c ) = {R}_{\max } \frac{{c}^{n}}{{c}^{n} + {c}_{50}^{n}} = {R}_{\max } \  \sigma ( n \  \ln  ( c / {c}_{50} ) ) \quad  \tag{0.6}
 ```
 
-This is the Hill equation (0.2) again, in a new place: biology reuses the same S-shape for very different mechanisms. It is also the closest biological relative of the artificial neuron of section 3: an input, a threshold ${c}_{50}$, a slope n, and a saturating output. Figure 0.6 uses the illustrative values n = 2 and ${c}_{50}$ = 0.2.
+This is the Hill equation (0.2) again, in a new place: biology reuses the same S-shape for very different mechanisms. It is also the closest biological relative of the artificial neuron of section 3: an input, a threshold $`{c}_{50}`$, a slope n, and a saturating output. Figure 0.6 uses the illustrative values n = 2 and $`{c}_{50}`$ = 0.2.
 
 *Figure 0.6. Contrast response of a model visual neuron, Eq. (0.6), against log contrast, for n = 1, 2 and 4.*
 
@@ -513,7 +513,7 @@ G. Cybenko, "Approximation by superpositions of a sigmoidal function", Mathemati
 \begin{gathered}G ( x ) = {\sum}_{j = 1}^{N} {\alpha}_{j} \  \sigma ( {y}_{j}^{\top} x + {\theta}_{j} ) \\ \text{where} \  x \in {I}_{n} = {[ 0 , 1 ]}^{n} , \quad  {y}_{j} \in {\mathbb{R}}^{n} , \quad  {\alpha}_{j} , {\theta}_{j} \in \mathbb{R}\end{gathered} \tag{3}
 ```
 
-Eq. (3) is exactly a neural network with one hidden layer of N units: unit j computes σ(${y}_{j}$·x + ${\theta}_{j}$), and the output is a linear combination of the units. Figure 3 draws it for n = 2 inputs and N = 3 hidden units.
+Eq. (3) is exactly a neural network with one hidden layer of N units: unit j computes σ($`{y}_{j}`$·x + $`{\theta}_{j}`$), and the output is a linear combination of the units. Figure 3 draws it for n = 2 inputs and N = 3 hidden units.
 
 *Figure 3. Cybenko's network for n = 2, N = 3. Red labels are the weights carried by the arrows.*
 
@@ -549,8 +549,8 @@ Graph[Join[inE, outE], VertexCoordinates -> coords,
 
 - Information flows in the direction of the arrows, from left to right: inputs, then hidden units, then the output. Nothing ever flows back, which is why this is called a feedforward network. Compare BasicRecurrentLayer, where the state loops back into the layer at the next time step.
 - Each arrow carries a number from the node at its tail to the node at its head, and multiplies it on the way by the weight written on it. A large weight means a strong influence, a negative weight pushes in the opposite direction, and a weight of zero is the same as having no arrow.
-- Each hidden node ${h}_{j}$ adds up everything that arrives, adds its own offset ${\theta}_{j}$ (not drawn), and passes the total through the S-curve. Its output answers one question: how strongly does this unit switch on for this input?
-- The output node G adds up the hidden units' answers, each scaled by its ${\alpha}_{j}$. There is no S-curve at the output.
+- Each hidden node $`{h}_{j}`$ adds up everything that arrives, adds its own offset $`{\theta}_{j}`$ (not drawn), and passes the total through the S-curve. Its output answers one question: how strongly does this unit switch on for this input?
+- The output node G adds up the hidden units' answers, each scaled by its $`{\alpha}_{j}`$. There is no S-curve at the output.
 - An analogy: think of a committee. Each hidden unit is a member who looks at the same facts (the inputs) with personal priorities (the weights y), forms a fairly yes-or-no opinion (the S-curve), and the chair (G) combines the opinions, trusting each member to a different degree (the weights α).
 
 #### In mathematical terms
@@ -561,10 +561,10 @@ Figure 3 is a directed acyclic graph. Each vertex is a quantity, and an edge fro
 \begin{gathered}{z}_{j} = {\sum}_{i = 1}^{n} {y}_{ji} {x}_{i} + {\theta}_{j} , \quad  {h}_{j} = \sigma ( {z}_{j} ) , \quad  G = {\sum}_{j = 1}^{N} {\alpha}_{j} {h}_{j} \\ \iff \quad  G ( x ) = {\alpha}^{\top} \sigma ( Y \  x + \theta ) , \quad  Y \in {\mathbb{R}}^{N \times n}\end{gathered} \tag{4}
 ```
 
-- The arrows of the first layer are the entries of the matrix Y. The arrow from ${x}_{i}$ to ${h}_{j}$ carries ${y}_{ji}$: row j for the receiving unit, column i for the sending input. The arrows of the second layer are the entries of the vector α. A missing arrow is a zero entry.
-- The offset ${\theta}_{j}$ can be drawn as one more arrow, from a constant input that is always 1. Counting arrows then counts parameters: nN + N + N.
+- The arrows of the first layer are the entries of the matrix Y. The arrow from $`{x}_{i}`$ to $`{h}_{j}`$ carries $`{y}_{ji}`$: row j for the receiving unit, column i for the sending input. The arrows of the second layer are the entries of the vector α. A missing arrow is a zero entry.
+- The offset $`{\theta}_{j}`$ can be drawn as one more arrow, from a constant input that is always 1. Counting arrows then counts parameters: nN + N + N.
 - The graph has no cycles, so it describes a composition of functions. Eq. (4) is G = L₂ ∘ σ ∘ L₁, with the affine map L₁(x) = Y x + θ, σ applied to each component, and the linear map L₂(h) = α·h. This is Eq. (3) again. Each piece is continuous, so G is continuous (Appendix A).
-- The arrows also show how derivatives flow. Each arrow's label is a local partial derivative (∂${z}_{j}$/∂${x}_{i}$ = ${y}_{ji}$ and ∂G/∂${h}_{j}$ = ${\alpha}_{j}$), and each node contributes ∂${h}_{j}$/∂${z}_{j}$ = σ′(${z}_{j}$). By the chain rule, the derivative of the output with respect to an input is the sum, over every path from that input to G, of the product of the local derivatives along the path:
+- The arrows also show how derivatives flow. Each arrow's label is a local partial derivative (∂$`{z}_{j}`$/∂$`{x}_{i}`$ = $`{y}_{ji}`$ and ∂G/∂$`{h}_{j}`$ = $`{\alpha}_{j}`$), and each node contributes ∂$`{h}_{j}`$/∂$`{z}_{j}`$ = σ′($`{z}_{j}`$). By the chain rule, the derivative of the output with respect to an input is the sum, over every path from that input to G, of the product of the local derivatives along the path:
 
 ```math
 \frac{\partial G}{\partial {x}_{i}} = {\sum}_{j = 1}^{N} \underset{h \to G}{{\alpha}_{j}} \  \underset{\text{inside} \  {h}_{j}}{{\sigma}^{\prime} ( {z}_{j} )} \  \underset{x \to h}{{y}_{ji}} \tag{5}
@@ -593,11 +593,11 @@ Module[{Yw, th, al, gNet, x0, auto, z, pathSum, u, v},
 
 **Output (Wolfram run):** difference ≈ 2 × 10⁻¹⁷
 
-The difference is at machine-precision level (about ${10}^{-17}$).
+The difference is at machine-precision level (about $`{10}^{-17}`$).
 
 ### Definitions and results
 
-**Discriminatory.** σ is discriminatory if the only finite signed regular Borel measure μ on ${I}_{n}$ that satisfies
+**Discriminatory.** σ is discriminatory if the only finite signed regular Borel measure μ on $`{I}_{n}`$ that satisfies
 
 ```math
 {\int}_{{I}_{n}} \sigma ( {y}^{\top} x + \theta ) \mathrm{d} \mu ( x ) = 0 \quad  \text{for all} \quad  y \in {\mathbb{R}}^{n} , \theta \in \mathbb{R} \tag{6}
@@ -605,15 +605,15 @@ The difference is at machine-precision level (about ${10}^{-17}$).
 
 is μ = 0. In words, Eq. (6) says that no nonzero measure is invisible to every ridge function σ(y·x + θ).
 
-**Theorem 1 (Cybenko 1989).** If σ is continuous and discriminatory, the sums G(x) of Eq. (3) are dense in $C ( {I}_{n} )$, the space of continuous functions on the cube (Appendix A): for every continuous f and every ε > 0 there is a G with $\lvert G ( x ) - f ( x ) \rvert < \varepsilon$ for all x in ${I}_{n}$.
+**Theorem 1 (Cybenko 1989).** If σ is continuous and discriminatory, the sums G(x) of Eq. (3) are dense in $`C ( {I}_{n} )`$, the space of continuous functions on the cube (Appendix A): for every continuous f and every ε > 0 there is a G with $`\lvert G ( x ) - f ( x ) \rvert < \varepsilon`$ for all x in $`{I}_{n}`$.
 
 **Lemma 1 (Cybenko 1989).** Every bounded, measurable sigmoidal function is discriminatory; in particular every continuous one is.
 
-**Theorem 2 (Cybenko 1989, the universal approximation theorem).** For any continuous sigmoidal σ, the sums G(x) are dense in $C ( {I}_{n} )$. One hidden layer of S-shaped units (Figure 3, with N large enough) can approximate any continuous function on the cube as closely as you like.
+**Theorem 2 (Cybenko 1989, the universal approximation theorem).** For any continuous sigmoidal σ, the sums G(x) are dense in $`C ( {I}_{n} )`$. One hidden layer of S-shaped units (Figure 3, with N large enough) can approximate any continuous function on the cube as closely as you like.
 
-**Theorem 3 (decision regions).** Let σ be continuous and sigmoidal, split ${I}_{n}$ into finitely many measurable pieces ${P}_{1}$, …, ${P}_{k}$, and let f(x) = j on ${P}_{j}$. For every ε > 0 there is a sum G of Eq. (3) and a set D ⊂ ${I}_{n}$ of measure at least 1 - ε with |G(x) - f(x)| < ε for all x in D. In words: a one-hidden-layer network can classify correctly everywhere except on a set as small as you like.
+**Theorem 3 (decision regions).** Let σ be continuous and sigmoidal, split $`{I}_{n}`$ into finitely many measurable pieces $`{P}_{1}`$, …, $`{P}_{k}`$, and let f(x) = j on $`{P}_{j}`$. For every ε > 0 there is a sum G of Eq. (3) and a set D ⊂ $`{I}_{n}`$ of measure at least 1 - ε with |G(x) - f(x)| < ε for all x in D. In words: a one-hidden-layer network can classify correctly everywhere except on a set as small as you like.
 
-**Theorem 4 (L¹ approximation).** If σ is bounded, measurable and sigmoidal, the step included, the sums G of Eq. (3) are dense in L¹(${I}_{n}$): the area between f and G can be made as small as you like.
+**Theorem 4 (L¹ approximation).** If σ is bounded, measurable and sigmoidal, the step included, the sums G of Eq. (3) are dense in L¹($`{I}_{n}`$): the area between f and G can be made as small as you like.
 
 Theorems 1–4 and Lemma 1 are numbered as in Cybenko's paper.
 
@@ -621,8 +621,8 @@ Theorems 1–4 and Lemma 1 are numbered as in Cybenko's paper.
 
 Theorem 1 is pure functional analysis and never builds a network:
 
-1. The set S of all sums G is a linear subspace of C(${I}_{n}$). Suppose its closure R is not all of C(${I}_{n}$).
-1. Hahn–Banach then gives a nonzero bounded linear functional L on C(${I}_{n}$) that vanishes on R.
+1. The set S of all sums G is a linear subspace of C($`{I}_{n}`$). Suppose its closure R is not all of C($`{I}_{n}`$).
+1. Hahn–Banach then gives a nonzero bounded linear functional L on C($`{I}_{n}`$) that vanishes on R.
 1. The Riesz representation theorem writes L(h) = ∫ h dμ for some measure μ ≠ 0.
 1. Every σ(y·x + θ) lies in R, so its integral against μ is 0. Since σ is discriminatory (Eq. (6)), μ = 0, a contradiction.
 
@@ -638,11 +638,11 @@ The proof idea can be made constructive in 1D. Steep sigmoids are nearly steps, 
 {G}_{N} ( x ) = f ( 0 ) + {\sum}_{k = 1}^{N} ( f ( \frac{k}{N} ) - f ( \frac{k - 1}{N} ) ) \sigma ( \lambda ( x - \frac{k - 1 / 2}{N} ) ) \tag{7}
 ```
 
-Eq. (7) is a special case of Eq. (3), with n = 1, ${y}_{k}$ = λ, ${\theta}_{k}$ = -λ(k - 1/2)/N, and ${\alpha}_{k}$ equal to the jumps of f, plus a constant.
+Eq. (7) is a special case of Eq. (3), with n = 1, $`{y}_{k}`$ = λ, $`{\theta}_{k}`$ = -λ(k - 1/2)/N, and $`{\alpha}_{k}`$ equal to the jumps of f, plus a constant.
 
 ### Example A: a smooth function
 
-*Figure 4. The function f (blue) and the staircase ${G}_{10}$ of Eq. (7) built from 10 steep sigmoids (orange).*
+*Figure 4. The function f (blue) and the staircase $`{G}_{10}`$ of Eq. (7) built from 10 steep sigmoids (orange).*
 
 ```wolfram
 (*c.8*)
@@ -661,7 +661,7 @@ Plot[{f[x], stair[f, 10, 200][x]}, {x, 0, 1},
 
 Measure the uniform (sup-norm) error on a fine grid, with steepness λ = 20N:
 
-*Table 2. Sup-norm error of ${G}_{N}$ for example A: it halves each time N doubles.*
+*Table 2. Sup-norm error of $`{G}_{N}`$ for example A: it halves each time N doubles.*
 
 ```wolfram
 (*c.9*)
@@ -693,7 +693,7 @@ The same construction applied to four more functions on [0, 1]:
 - D: exp(-200 (x - 1/2)²), smooth but a narrow bump about 0.1 wide.
 - E: the step UnitStep[x - 0.3], which jumps at 0.3 and is not continuous. Cybenko's theorem says nothing about uniform approximation of such a function.
 
-*Figure 5. Examples B–E (blue) and their staircases ${G}_{10}$ (orange).*
+*Figure 5. Examples B–E (blue) and their staircases $`{G}_{10}`$ (orange).*
 
 ```wolfram
 (*c.10*)
@@ -717,7 +717,7 @@ Labeled[
 
 <img alt="c.10" src="figures/f5.png" width="700">
 
-*Table 3. Sup-norm error of ${G}_{N}$ for the five examples: A sin(2πx) + x²/2, B |x - 1/2|, C √x, D narrow bump, E step at 0.3.*
+*Table 3. Sup-norm error of $`{G}_{N}`$ for the five examples: A sin(2πx) + x²/2, B |x - 1/2|, C √x, D narrow bump, E step at 0.3.*
 
 ```wolfram
 (*c.11*)
@@ -744,11 +744,11 @@ table[Prepend[
 What a test run showed, and why:
 
 - A and B: the error halves when N doubles. A kink costs nothing, because the staircase only needs the values of f, not its derivative.
-- C: the error shrinks only by a factor of about 1/√2 per doubling (0.24, 0.17, 0.12, 0.086, 0.060), so it is O(${N}^{-1/2}$). Near 0, √x changes by √(1/N) over an interval of length 1/N.
+- C: the error shrinks only by a factor of about 1/√2 per doubling (0.24, 0.17, 0.12, 0.086, 0.060), so it is O($`{N}^{-1/2}`$). Near 0, √x changes by √(1/N) over an interval of length 1/N.
 - D: the error is large (0.86) until the steps are finer than the bump, then falls like 1/N. A function with fine detail needs many units before the approximation starts to work.
 - E: the error never goes to zero; it stays between 0.5 and 1. A jump cannot be followed uniformly by a continuous function, because every finite sum of sigmoids is continuous. In the weaker sense of area between the curves, Theorem 4, the error does go to zero.
 
-The rule behind all five: the error is of the order of the largest change of f over an interval of length 1/N. That quantity is the modulus of continuity ${\omega}_{f}$(1/N), Eq. (12) in Appendix A. It goes to 0 exactly when f is uniformly continuous, and Table 6 computes it for these examples.
+The rule behind all five: the error is of the order of the largest change of f over an interval of length 1/N. That quantity is the modulus of continuity $`{\omega}_{f}`$(1/N), Eq. (12) in Appendix A. It goes to 0 exactly when f is uniformly continuous, and Table 6 computes it for these examples.
 
 ## 5. Seeing it work in two dimensions: fitting the outer weights
 
@@ -767,7 +767,7 @@ Plot3D[g[x, y], {x, -1, 1}, {y, -1, 1},
 
 <img alt="c.12" src="figures/f6.png" width="520">
 
-In practice the inner weights ${y}_{j}$, ${\theta}_{j}$ are not placed by hand. A quick experiment: choose them at random, then solve a linear least-squares problem for the outer weights ${\alpha}_{j}$ of Eq. (3). This only finds the best α for random inner weights, so it is weaker than full training, yet the error still falls fast as N grows.
+In practice the inner weights $`{y}_{j}`$, $`{\theta}_{j}`$ are not placed by hand. A quick experiment: choose them at random, then solve a linear least-squares problem for the outer weights $`{\alpha}_{j}`$ of Eq. (3). This only finds the best α for random inner weights, so it is weaker than full training, yet the error still falls fast as N grows.
 
 ```wolfram
 (*c.13*)
@@ -803,7 +803,7 @@ table[Prepend[
 | 200 | 0.00012 |
 
 
-In a test run the maximum error went from about 1 with N = 10, to under 0.1 with N = 50, to about ${10}^{-4}$ with N = 200.
+In a test run the maximum error went from about 1 with N = 10, to under 0.1 with N = 50, to about $`{10}^{-4}`$ with N = 200.
 
 *Figure 7. Left: the fit by a sum of 100 sigmoids, to compare with Figure 6. Right: the error g - G, on a much smaller vertical scale.*
 
@@ -840,14 +840,14 @@ In 1900 Hilbert asked whether the roots of the degree-7 equation x⁷ + a x³ + 
 
 ### The theorem
 
-**Theorem 5 (Kolmogorov 1957).** Every continuous (Appendix A) $f : {[ 0 , 1 ]}^{n} \to \mathbb{R}$, n ≥ 2, can be written exactly as
+**Theorem 5 (Kolmogorov 1957).** Every continuous (Appendix A) $`f : {[ 0 , 1 ]}^{n} \to \mathbb{R}`$, n ≥ 2, can be written exactly as
 
 ```math
 f ( {x}_{1} , \ldots , {x}_{n} ) = {\sum}_{q = 0}^{2 n} {\Phi}_{q} ( {\sum}_{p = 1}^{n} {\psi}_{p , q} ( {x}_{p} ) ) \tag{8}
 ```
 
-- The inner functions ${\psi}_{p,q}$ of Eq. (8) are continuous and increasing, and universal: they depend only on n, not on f.
-- The outer functions ${\Phi}_{q}$ are continuous and depend on f.
+- The inner functions $`{\psi}_{p,q}`$ of Eq. (8) are continuous and increasing, and universal: they depend only on n, not on f.
+- The outer functions $`{\Phi}_{q}`$ are continuous and depend on f.
 - The number of terms is fixed at 2n + 1, and the representation is exact, not approximate.
 - Later refinements by Lorentz and Sprecher reduce the outer functions to a single function, and the inner functions to scaled and shifted copies of one function.
 
@@ -871,7 +871,7 @@ The second identity already has the shape of Eq. (8): inner functions ψ = Log o
 
 Hecht-Nielsen (1987) pointed out that Eq. (8) is a feedforward network: one layer computes the inner functions, the next adds them and applies the outer functions, and the output adds those. For n = 2 there are 2n + 1 = 5 branches (Figure 8).
 
-*Figure 8. Eq. (8) as a network for n = 2. The arrows mean something slightly different from those in Figure 3: they carry a value without multiplying it by a weight. Each ${\psi}_{pq}$ node applies its own one-variable function to its input, each ${\Phi}_{q}$ node adds what arrives and then applies ${\Phi}_{q}$, and f adds the five branches. In Figure 3 every node applies the same σ and all the flexibility sits in the weights on the arrows; here there are no weights and all the flexibility sits in the node functions.*
+*Figure 8. Eq. (8) as a network for n = 2. The arrows mean something slightly different from those in Figure 3: they carry a value without multiplying it by a weight. Each $`{\psi}_{pq}`$ node applies its own one-variable function to its input, each $`{\Phi}_{q}`$ node adds what arrives and then applies $`{\Phi}_{q}`$, and f adds the five branches. In Figure 3 every node applies the same σ and all the flexibility sits in the weights on the arrows; here there are no weights and all the flexibility sits in the node functions.*
 
 ```wolfram
 (*c.17*)
@@ -899,7 +899,7 @@ Write Cybenko's sum, Eq. (3), with the inner product spelled out, next to Kolmog
 \begin{gathered}G ( x ) = {\sum}_{j = 1}^{N} {\alpha}_{j} \  \sigma ( {\sum}_{p = 1}^{n} {y}_{j p} {x}_{p} + {\theta}_{j} ) \quad  \text{(Cybenko)} \\ f ( x ) = {\sum}_{q = 0}^{2 n} {\Phi}_{q} ( {\sum}_{p = 1}^{n} {\psi}_{p , q} ( {x}_{p} ) ) \quad  \text{(Kolmogorov)}\end{gathered} \tag{9}
 ```
 
-The two sides of Eq. (9) match term by term. Cybenko's network is a Kolmogorov representation in which the inner functions are linear, ${\psi}_{p , j} ( {x}_{p} ) = {y}_{j p} {x}_{p}$, and every outer function is a scaled and shifted copy of the same S-shape, ${\Phi}_{j} ( s ) = {\alpha}_{j} \sigma ( s + {\theta}_{j} )$. In the pictures, Figure 8 becomes Figure 3 when you move the flexibility off the node functions and onto weights on the arrows. Trading Kolmogorov's wild, special-purpose functions for one simple, smooth, fixed one costs two things: the representation is no longer exact, and the number of terms is no longer 2n + 1 but N(ε), which may be enormous.
+The two sides of Eq. (9) match term by term. Cybenko's network is a Kolmogorov representation in which the inner functions are linear, $`{\psi}_{p , j} ( {x}_{p} ) = {y}_{j p} {x}_{p}`$, and every outer function is a scaled and shifted copy of the same S-shape, $`{\Phi}_{j} ( s ) = {\alpha}_{j} \sigma ( s + {\theta}_{j} )`$. In the pictures, Figure 8 becomes Figure 3 when you move the flexibility off the node functions and onto weights on the arrows. Trading Kolmogorov's wild, special-purpose functions for one simple, smooth, fixed one costs two things: the representation is no longer exact, and the number of terms is no longer 2n + 1 but N(ε), which may be enormous.
 
 *Table 5. The two theorems compared.*
 
@@ -925,9 +925,9 @@ Cybenko makes the contrast himself. He notes Kolmogorov's exact representation, 
 
 ### After Cybenko: the S-shape is sufficient but not necessary
 
-- **Theorem 6 (Hornik, Stinchcombe and White 1989).** If ψ is any squashing function (nondecreasing, with limits 0 and 1), one-hidden-layer networks with activation ψ approximate every continuous function on ${\mathbb{R}}^{n}$ uniformly on compact sets, and every Borel measurable function in measure. The proof uses the Stone–Weierstrass theorem.
-- **Theorem 7 (Hornik 1991).** If the activation is bounded and nonconstant, one-hidden-layer networks are dense in ${L}^{p}$(μ) for every finite measure μ on ${\mathbb{R}}^{n}$ and 1 ≤ p < ∞. If it is also continuous, they approximate every continuous function uniformly on compact sets. The S-shape itself is not needed.
-- **Theorem 8 (Leshno, Lin, Pinkus and Schocken 1993).** Let the activation σ be locally bounded and piecewise continuous. One-hidden-layer networks approximate every continuous function on ${\mathbb{R}}^{n}$ uniformly on compact sets if and only if σ is not a polynomial. This covers ReLU, which is not S-shaped at all.
+- **Theorem 6 (Hornik, Stinchcombe and White 1989).** If ψ is any squashing function (nondecreasing, with limits 0 and 1), one-hidden-layer networks with activation ψ approximate every continuous function on $`{\mathbb{R}}^{n}`$ uniformly on compact sets, and every Borel measurable function in measure. The proof uses the Stone–Weierstrass theorem.
+- **Theorem 7 (Hornik 1991).** If the activation is bounded and nonconstant, one-hidden-layer networks are dense in $`{L}^{p}`$(μ) for every finite measure μ on $`{\mathbb{R}}^{n}`$ and 1 ≤ p < ∞. If it is also continuous, they approximate every continuous function uniformly on compact sets. The S-shape itself is not needed.
+- **Theorem 8 (Leshno, Lin, Pinkus and Schocken 1993).** Let the activation σ be locally bounded and piecewise continuous. One-hidden-layer networks approximate every continuous function on $`{\mathbb{R}}^{n}`$ uniformly on compact sets if and only if σ is not a polynomial. This covers ReLU, which is not S-shaped at all.
 - Barron (1993) gave approximation rates for sigmoidal networks that, for a suitable class of functions, do not grow exponentially with the dimension.
 - Liu et al. (2024), "KAN: Kolmogorov–Arnold Networks", returned to the Kolmogorov form of Figure 8: learnable one-variable functions (splines) on the edges and plain addition at the nodes.
 
@@ -940,12 +940,12 @@ So why S-shapes historically? They are the smallest change from the biological t
 - Try the least-squares fit of section 5 (Table 4) with σ(t) = t², a polynomial. The error stops improving. Which of Theorems 1–8 explains this?
 - Write x y z as a superposition in the form of Eq. (8), using one-variable functions and addition, valid for positive x, y, z.
 - Show that one step of BasicRecurrentLayer, tanh(W x + U h + b), is a Cybenko-type sum when you take (x, h) as the input. Draw its graph in the style of Figure 3. Which arrow would you add to make it recurrent?
-- Use Eq. (5) to write ∂G/∂${\alpha}_{j}$ and ∂G/∂${y}_{ji}$, and check both against D as in c.7.
+- Use Eq. (5) to write ∂G/∂$`{\alpha}_{j}`$ and ∂G/∂$`{y}_{ji}`$, and check both against D as in c.7.
 - Run the staircase of section 4 on x sin(1/x) (with value 0 at 0) and on the Cantor staircase of Figure 9. Predict the rate of convergence from the modulus of continuity, Eq. (12), before you measure it.
 
 ## Appendix A. Continuous functions
 
-Both theorems are about continuous functions: Cybenko's approximates every function in C(${I}_{n}$), and Kolmogorov's represents every continuous function exactly. This appendix collects what continuity means, how it differs from uniform continuity, and some examples and counterexamples, several of which appear in the main text.
+Both theorems are about continuous functions: Cybenko's approximates every function in C($`{I}_{n}`$), and Kolmogorov's represents every continuous function exactly. This appendix collects what continuity means, how it differs from uniform continuity, and some examples and counterexamples, several of which appear in the main text.
 
 ### A.1 Definition
 
@@ -956,8 +956,8 @@ In everyday terms: f is continuous at a point a if a small change in the input n
 ```
 
 - f is continuous on D if Eq. (10) holds at every point of D.
-- Equivalent forms: ${\lim }_{x\to a}$ f(x) = f(a); or, for every sequence ${x}_{k}$ → a, f(${x}_{k}$) → f(a).
-- For functions of several variables, replace |x - a| by the Euclidean distance ‖x - a‖. This is the sense used for C(${I}_{n}$).
+- Equivalent forms: $`{\lim }_{x\to a}`$ f(x) = f(a); or, for every sequence $`{x}_{k}`$ → a, f($`{x}_{k}`$) → f(a).
+- For functions of several variables, replace |x - a| by the Euclidean distance ‖x - a‖. This is the sense used for C($`{I}_{n}`$).
 - Sums, products, quotients (where defined) and compositions of continuous functions are continuous. That is why every network in Eq. (3), (4) and (7) with a continuous σ is a continuous function.
 
 ### A.2 Uniform continuity and the modulus of continuity
@@ -974,11 +974,11 @@ The modulus of continuity measures the largest change of f over distances up to 
 \begin{gathered}{\omega}_{f} ( \delta ) = \sup _{\lvert x - {x}^{\prime} \rvert \le \delta} \lvert f ( x ) - f ( {x}^{\prime} ) \rvert \\ f \  \text{uniformly continuous} \quad  \iff \quad  {\omega}_{f} ( \delta ) \to 0 \  \text{as} \  \delta \to 0\end{gathered} \tag{12}
 ```
 
-- **Theorem 9 (Heine–Cantor).** A continuous function on a closed, bounded set, such as [0, 1] or the cube ${I}_{n}$, is uniformly continuous.
-- **Theorem 10 (extreme value theorem).** A continuous function on a closed, bounded set attains its maximum and minimum. So the sup norm ‖f‖ = max |f| is finite, and C(${I}_{n}$) with this norm is the space in Theorems 1 and 2.
-- Why it matters here: the staircase error in section 4 is of the order of ${\omega}_{f}$(1/N). It goes to 0 for every continuous f on [0, 1] because of Theorem 9, and it does not go to 0 for the jump in example E.
+- **Theorem 9 (Heine–Cantor).** A continuous function on a closed, bounded set, such as [0, 1] or the cube $`{I}_{n}`$, is uniformly continuous.
+- **Theorem 10 (extreme value theorem).** A continuous function on a closed, bounded set attains its maximum and minimum. So the sup norm ‖f‖ = max |f| is finite, and C($`{I}_{n}`$) with this norm is the space in Theorems 1 and 2.
+- Why it matters here: the staircase error in section 4 is of the order of $`{\omega}_{f}`$(1/N). It goes to 0 for every continuous f on [0, 1] because of Theorem 9, and it does not go to 0 for the jump in example E.
 
-*Table 6. The modulus of continuity ${\omega}_{f}$(δ) of the section 4 examples, computed on a grid. Compare its decay with the error columns of Table 3. Rows A–E as in Table 3.*
+*Table 6. The modulus of continuity $`{\omega}_{f}`$(δ) of the section 4 examples, computed on a grid. Compare its decay with the error columns of Table 3. Rows A–E as in Table 3.*
 
 ```wolfram
 (*c.18*)
@@ -1007,7 +1007,7 @@ table[Prepend[
 | E | 1 | 1 | 1 | 1 | 1 |
 
 
-For √x, ω(δ) = √δ, which explains the O(${N}^{-1/2}$) rate of example C. For the step, ω(δ) = 1 for every δ > 0, which explains why example E never converges. (c.18 uses allExamples from c.11, so run section 4 first.)
+For √x, ω(δ) = √δ, which explains the O($`{N}^{-1/2}`$) rate of example C. For the step, ω(δ) = 1 for every δ > 0, which explains why example E never converges. (c.18 uses allExamples from c.11, so run section 4 first.)
 
 ### A.3 Examples of continuous functions
 
@@ -1015,7 +1015,7 @@ For √x, ω(δ) = √δ, which explains the O(${N}^{-1/2}$) rate of example C. 
 - |x|: continuous everywhere, not differentiable at 0. Continuity is much weaker than smoothness.
 - √x on [0, 1]: continuous, and uniformly so, but not Lipschitz, because its slope is unbounded near 0.
 - x sin(1/x), with value 0 at 0: continuous at 0, because |x sin(1/x)| ≤ |x|, but it oscillates infinitely often near 0 and is not differentiable there.
-- The Weierstrass function W(x) = ∑ ${a}^{k}$ cos(${b}^{k}$ π x), with 0 < a < 1, b an odd integer, and a b > 1 + 3π/2: continuous everywhere and differentiable nowhere. Figure 9 plots a partial sum.
+- The Weierstrass function W(x) = ∑ $`{a}^{k}`$ cos($`{b}^{k}`$ π x), with 0 < a < 1, b an odd integer, and a b > 1 + 3π/2: continuous everywhere and differentiable nowhere. Figure 9 plots a partial sum.
 - The Cantor staircase (devil's staircase): continuous and increasing from 0 to 1, yet flat on intervals of total length 1. Kolmogorov's inner functions are built in this spirit.
 
 Wolfram Language can test continuity with FunctionContinuous, and limits show what happens at the critical point:
@@ -1077,7 +1077,7 @@ Labeled[
 - sin(1/x), with any value at 0: it oscillates between -1 and 1 infinitely often near 0, so it has no limit there.
 - The Dirichlet function, 1 on the rationals and 0 on the irrationals: discontinuous at every point. It cannot be meaningfully plotted.
 - Thomae's function, 1/q at x = p/q in lowest terms and 0 at irrationals: discontinuous at every rational and continuous at every irrational.
-- 1/x on (0, 1]: continuous at every point of its domain, but not uniformly continuous and not bounded. The domain is not closed, so Theorem 9 does not apply. This is why both theorems work on the closed cube ${[ 0 , 1 ]}^{n}$.
+- 1/x on (0, 1]: continuous at every point of its domain, but not uniformly continuous and not bounded. The domain is not closed, so Theorem 9 does not apply. This is why both theorems work on the closed cube $`{[ 0 , 1 ]}^{n}`$.
 - x² on all of ℝ: continuous but not uniformly continuous, because the domain is unbounded.
 
 *Figure 10. 10a–10c are not continuous. 10d is continuous but not uniformly continuous.*
