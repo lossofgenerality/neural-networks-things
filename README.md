@@ -35,6 +35,7 @@ The seven exercises of section 8, each stated and solved with derivations, numer
 |---|---|
 | [`S-Shape-Functions-Solved-Exercises.nb`](s-shape-functions-theory/S-Shape-Functions-Solved-Exercises.nb) | The Wolfram notebook, evaluated (Wolfram 15) |
 | [`S-Shape-Functions-Solved-Exercises.pdf`](s-shape-functions-theory/S-Shape-Functions-Solved-Exercises.pdf) | Printed version, A4 |
+| [`S-Shape-Functions-Solved-Exercises.md`](s-shape-functions-theory/S-Shape-Functions-Solved-Exercises.md) | Markdown edition with LaTeX equations, tables and the Wolfram figures |
 
 ### [BasicRecurrentLayer](basic-recurrent-layer/)
 
