@@ -6,7 +6,7 @@
 Advanced AI System Programming  
 Hokkaido Prefecture, Japan  
 *noor@compclassnotes.com*  
-Setup carried out with Claude (Anthropic) on 16 November 2026  
+Setup carried out with AI assistance on 16 November 2026  
 Version 1.0.0 · 16 November 2026  
 
 *© Computational Classnotes · CC BY-NC-SA 4.0*
@@ -19,7 +19,7 @@ The work used three places. Each has its own copy of Python and the libraries, a
 
 | Place | Machine | What it holds |
 |---|---|---|
-| Claude's workspace | Linux, x86_64, in Anthropic's cloud | where the notebooks were written, run and checked |
+| The cloud workspace | Linux, x86_64, in the cloud | where the notebooks were written, run and checked |
 | The Mac | macOS 26 Tahoe, Apple silicon (arm64), user `darashayda` | a copy of the repository in `~/Documents/GitHub/neural-networks-things`, with uv, Python and the libraries |
 | GitHub | repository `lossofgenerality/neural-networks-things` | the notebooks and setup files; GitHub Codespaces builds its own copy of the environment from them |
 
@@ -27,8 +27,8 @@ The work used three places. Each has its own copy of Python and the libraries, a
 
 | Component | Version | Notes |
 |---|---|---|
-| uv (Astral) | 0.13.8 on the Mac; 0.11.32 in Claude's workspace | Python versions, environments and libraries |
-| Python (CPython, managed by uv) | 3.14.10 on the Mac; 3.14.6 in Claude's workspace | `.python-version` asks for 3.14, and uv takes the newest 3.14 it has |
+| uv (Astral) | 0.13.8 on the Mac; 0.11.32 in the cloud workspace | Python versions, environments and libraries |
+| Python (CPython, managed by uv) | 3.14.10 on the Mac; 3.14.6 in the cloud workspace | `.python-version` asks for 3.14, and uv takes the newest 3.14 it has |
 | NumPy | 2.5.5 | |
 | SciPy | 1.18.1 | |
 | SymPy | 1.14.0 | |
@@ -46,9 +46,9 @@ All library versions are fixed in `uv.lock`, so every place gets the same ones. 
 
 ### 1. The plan
 
-The plan (`Python-Port-Plan.md`, kept in the Claude Project "Python Ports and Notebooks") chose Python 3.14, uv, JupyterLab and the libraries above. Python 3.15.0 had come out on 9 October 2026, but PyTorch may lag behind a new Python, so 3.14 was chosen; moving up later is a change of one line.
+The plan (`Python-Port-Plan.md`, kept in the project "Python Ports and Notebooks") chose Python 3.14, uv, JupyterLab and the libraries above. Python 3.15.0 had come out on 9 October 2026, but PyTorch may lag behind a new Python, so 3.14 was chosen; moving up later is a change of one line.
 
-### 2. Claude's workspace: the repository and the environment
+### 2. The cloud workspace: the repository and the environment
 
 ```
 git clone https://github.com/lossofgenerality/neural-networks-things.git repo
@@ -75,7 +75,7 @@ The repository was copied to a new folder, the environment was built there from 
 
 ### 5. The Mac: files
 
-The Claude desktop app links the chat to the Mac. Claude asked for access to `~/Documents` (approved), found that `~/Documents/GitHub` had no copy of the repository, and created `~/Documents/GitHub/neural-networks-things` from a zip of the whole repository.
+The assistant's desktop app links the session to the Mac. The assistant asked for access to `~/Documents` (approved), found that `~/Documents/GitHub` had no copy of the repository, and created `~/Documents/GitHub/neural-networks-things` from a zip of the whole repository.
 
 It added a double-clickable script, `Run Notebooks.command`:
 
@@ -94,7 +94,7 @@ uv run jupyter lab s-shape-functions-theory/S-Shape-Functions-Theory.ipynb
 
 ### 6. The Mac: running the script
 
-Claude opened the folder in Finder with computer use and opened `Run Notebooks.command` with Finder's File → Open. Terminal then showed:
+The assistant opened the folder in Finder with computer use and opened `Run Notebooks.command` with Finder's File → Open. Terminal then showed:
 
 ```
 Installing uv ...
@@ -134,7 +134,7 @@ The Codespaces setup starts from Ubuntu 24.04, installs uv, runs `uv sync`, adds
 
 | # | What went wrong | Why | Fix |
 |---|---|---|---|
-| 1 | The CPU-only PyTorch could not be downloaded in Claude's workspace | the workspace's network allows only some hosts, and `download.pytorch.org` is not one of them | PyTorch was installed from PyPI. On Linux this version includes the CUDA libraries, so Linux installs, Codespaces included, download a few GB more than needed. The Mac gets the normal Apple-silicon wheel and is not affected |
+| 1 | The CPU-only PyTorch could not be downloaded in the cloud workspace | the workspace's network allows only some hosts, and `download.pytorch.org` is not one of them | PyTorch was installed from PyPI. On Linux this version includes the CUDA libraries, so Linux installs, Codespaces included, download a few GB more than needed. The Mac gets the normal Apple-silicon wheel and is not affected |
 | 2 | `uv init` gave the project the folder's name, a placeholder description and a `readme` entry | `uv init` defaults | renamed to `neural-networks-things`, description written, `readme` removed, `uv lock` rerun |
 | 3 | A rough draft of the Cantor-function code was left in cell c.21 | editing slip | removed before the first run |
 | 4 | Cell c.0.4 failed: `legend() got multiple values for keyword argument 'bbox_to_anchor'` | the helper `legend_below` always set the legend position, and c.0.4 set it again | the helper sets it only when it is not given |
@@ -143,14 +143,14 @@ The Codespaces setup starts from Ubuntu 24.04, installs uv, runs `uv sync`, adds
 | 7 | Table 3 of the main notebook disagreed in two places with the Wolfram Markdown edition (N = 80, C and D) | the Markdown edition and the PDF have two old values; a fresh Wolfram run gave the Python values digit for digit | the Python edition uses the correct values (0.061 and 0.046) |
 | 8 | Values from random weights differ from the Wolfram run (section 5; Problems 3, 5 and 6) | NumPy and PyTorch have their own random-number generators and seeds | the text of the Python editions gives the values of the Python run; the conclusions are unchanged |
 | 9 | The revision lines first read "revision 7 · Python edition 1" | a change that should not have been made | put back to exactly "revision 7" and "revision 1", as in the Wolfram notebooks |
-| 10 | The shell Claude has on the Mac could not install uv for macOS | that shell runs in a Linux sandbox on the Mac and can only reach the connected folders; it is not a macOS shell | the double-clickable script, run by macOS itself |
-| 11 | Computer use first refused to start | the Claude desktop app did not yet have macOS Accessibility and Screen Recording permission | the user granted it in System Settings |
-| 12 | Claude could not type into Terminal | for safety, Terminal is granted to Claude at "click" level only: clicks, no typing | the script does the typing; Claude only opens it |
+| 10 | The assistant's shell on the Mac could not install uv for macOS | that shell runs in a Linux sandbox on the Mac and can only reach the connected folders; it is not a macOS shell | the double-clickable script, run by macOS itself |
+| 11 | Computer use first refused to start | the assistant's desktop app did not yet have macOS Accessibility and Screen Recording permission | the user granted it in System Settings |
+| 12 | The assistant could not type into Terminal | for safety, Terminal is granted to the assistant at "click" level only: clicks, no typing | the script does the typing; the assistant only opens it |
 | 13 | In Finder, the Return key could not be sent to Go → Go to Folder, and double-clicking the script's name selected the name for renaming | keys and double-clicks act differently when Finder is not the frontmost app | double-clicked the folder in the suggestion list, then selected the script's icon and used File → Open |
 | 14 | Updating the Mac copy with `unzip` failed: `cannot delete old README.md` | deleting files in the connected folder is not allowed unless the user permits it, and `unzip` replaces a file by deleting it | the files were overwritten in place instead. The zips used for copying are in `_to_delete/` for the user to delete |
 | 15 | The link `http://localhost:8888/lab/tree/s-shape-functions-theory/...` was the wrong guess | when JupyterLab is started with a notebook file, its top folder is that file's folder | `http://localhost:8888/lab/tree/S-Shape-Functions-Theory.ipynb` |
 | 16 | `NameError: name 'commonsImage' is not defined` | a cell was run before c.0, which defines the helpers | Kernel → Restart Kernel and Run All Cells |
-| 17 | The Codespaces setup was not started by Claude | Claude cannot start a codespace from its workspace | checked instead that the configuration is valid and that the same `uv sync` works on a clean Linux machine; the first real start is the final test |
+| 17 | The Codespaces setup was not started from the cloud workspace | a codespace cannot be started from there | checked instead that the configuration is valid and that the same `uv sync` works on a clean Linux machine; the first real start is the final test |
 
 ## How to undo
 

@@ -6,7 +6,7 @@
 Advanced AI System Programming  
 Hokkaido Prefecture, Japan  
 *noor@compclassnotes.com*  
-Written with Claude (Anthropic), 16 November 2026  
+Written with AI assistance, 16 November 2026  
 Version 1.0.0 · 16 November 2026  
 
 *© Computational Classnotes · CC BY-NC-SA 4.0*
