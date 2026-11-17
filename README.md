@@ -41,6 +41,8 @@ The seven exercises of section 8, each stated and solved with derivations, numer
 
 ### [Feedforward Neural Networks](feedforward-neural-networks/)
 
+<img alt="Cover of Feedforward Neural Networks" src="feedforward-neural-networks/cover/Feedforward-Neural-Networks-Cover.png" width="260" align="right">
+
 *The algebra and the computing: a first network built from ordinary functions.*
 Dara O Shayda · Noor Hoshino
 
@@ -58,6 +60,7 @@ A feedforward network is a chain of simple steps: multiply by a matrix, add a ve
 | [`Feedforward-Neural-Networks.pdf`](feedforward-neural-networks/Feedforward-Neural-Networks.pdf) | Printed version, A4 |
 | [`Feedforward-Neural-Networks.md`](feedforward-neural-networks/Feedforward-Neural-Networks.md) | Markdown edition with LaTeX equations and the Wolfram outputs |
 | [`Feedforward-Neural-Networks.ipynb`](feedforward-neural-networks/Feedforward-Neural-Networks.ipynb) | Python edition, a Jupyter notebook (Python 3.14; NumPy for the networks, PyTorch for section 10), evaluated; the sliders and play buttons work in a running notebook |
+| [`cover/`](feedforward-neural-networks/cover/) | The cover, as PNG (1240 × 1754 and 2×) and A4 PDF |
 | [`videos/`](feedforward-neural-networks/videos/) | The animations as MP4 videos, and a recording of the 3D Unity 6 version of the cart-pole and the learned pendulum |
 
 - **Unity 6 version:** the cart-pole and the learned pendulum in 3D, with the notebook's trained networks and training inside Unity: https://github.com/lossofgenerality/neural-networks-unity
