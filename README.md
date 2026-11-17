@@ -59,6 +59,8 @@ A feedforward network is a chain of simple steps: multiply by a matrix, add a ve
 | [`Feedforward-Neural-Networks.md`](feedforward-neural-networks/Feedforward-Neural-Networks.md) | Markdown edition with LaTeX equations and the Wolfram outputs |
 | [`videos/`](feedforward-neural-networks/videos/) | The animations as MP4 videos, and a recording of the 3D Unity 6 version of the cart-pole and the learned pendulum |
 
+- **Unity 6 version:** the cart-pole and the learned pendulum in 3D, with the notebook's trained networks and training inside Unity: https://github.com/lossofgenerality/neural-networks-unity
+
 ### [BasicRecurrentLayer](basic-recurrent-layer/)
 
 | File | What it is |
