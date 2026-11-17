@@ -1,6 +1,6 @@
 # Neural Networks Things · Computational Classnotes
 
-Wolfram Language notebooks on the mathematics of neural networks, from S-shaped activation functions and universal approximation to recurrent layers built from scratch, with Python editions of the S Shape Functions notebooks. Each notebook is self-contained: it explains the ideas, states the results, and checks every formula with code you can run.
+Wolfram Language notebooks on the mathematics of neural networks, from S-shaped activation functions and universal approximation to feedforward networks trained by hand and recurrent layers built from scratch, with Python editions of the S Shape Functions notebooks. Each notebook is self-contained: it explains the ideas, states the results, and checks every formula with code you can run.
 
 ## Contents
 
@@ -38,6 +38,26 @@ The seven exercises of section 8, each stated and solved with derivations, numer
 | [`S-Shape-Functions-Solved-Exercises.pdf`](s-shape-functions-theory/S-Shape-Functions-Solved-Exercises.pdf) | Printed version, A4 |
 | [`S-Shape-Functions-Solved-Exercises.md`](s-shape-functions-theory/S-Shape-Functions-Solved-Exercises.md) | Markdown edition with LaTeX equations, tables and the Wolfram figures |
 | [`S-Shape-Functions-Solved-Exercises.ipynb`](s-shape-functions-theory/S-Shape-Functions-Solved-Exercises.ipynb) | Python edition, a Jupyter notebook (Python 3.14, PyTorch for Problem 5), evaluated |
+
+### [Feedforward Neural Networks](feedforward-neural-networks/)
+
+*The algebra and the computing: a first network built from ordinary functions.*
+Dara O Shayda · Noor Hoshino
+
+A feedforward network is a chain of simple steps: multiply by a matrix, add a vector, apply an S-shaped function, repeat. The notebook builds one step by step and shows both the algebra and the computing:
+
+- one learning step by hand on the smallest network with every part, with every number written out;
+- one neuron computing AND and OR; a layer as one matrix product; XOR and why it needs a hidden layer;
+- losses, backpropagation (derived, and checked against `D` and finite differences) and gradient descent, all in matrix form with the actual numbers of each example;
+- training shown with Manipulates and animations: XOR, Celsius to Fahrenheit, a 4-8-1 network that learns to balance a stick on a moving cart, and a 1-6-1 network that learns the force law of a pendulum and keeps it swinging;
+- the same networks with `NetChain` and `NetTrain`, and a diagram of every network with its trained weights.
+
+| File | What it is |
+|---|---|
+| [`Feedforward-Neural-Networks.nb`](feedforward-neural-networks/Feedforward-Neural-Networks.nb) | The Wolfram notebook, evaluated (Wolfram 15); animations and Manipulates are shown as one frame until their cells are run |
+| [`Feedforward-Neural-Networks.pdf`](feedforward-neural-networks/Feedforward-Neural-Networks.pdf) | Printed version, A4 |
+| [`Feedforward-Neural-Networks.md`](feedforward-neural-networks/Feedforward-Neural-Networks.md) | Markdown edition with LaTeX equations and the Wolfram outputs |
+| [`videos/`](feedforward-neural-networks/videos/) | The animations as MP4 videos, and a recording of the 3D Unity 6 version of the cart-pole and the learned pendulum |
 
 ### [BasicRecurrentLayer](basic-recurrent-layer/)
 
