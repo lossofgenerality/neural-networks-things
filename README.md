@@ -1,6 +1,6 @@
 # Neural Networks Things · Computational Classnotes
 
-Wolfram Language notebooks on the mathematics of neural networks, from S-shaped activation functions and universal approximation to feedforward networks trained by hand and recurrent layers built from scratch, with Python editions of the S Shape Functions notebooks. Each notebook is self-contained: it explains the ideas, states the results, and checks every formula with code you can run.
+Wolfram Language notebooks on the mathematics of neural networks, from S-shaped activation functions and universal approximation to feedforward networks trained by hand and recurrent layers built from scratch, with Python editions of the S Shape Functions notebooks and the BasicRecurrentLayer tutorial. Each notebook is self-contained: it explains the ideas, states the results, and checks every formula with code you can run.
 
 ## Contents
 
@@ -60,12 +60,14 @@ A feedforward network is a chain of simple steps: multiply by a matrix, add a ve
 | [`videos/`](feedforward-neural-networks/videos/) | The animations as MP4 videos, and a recording of the 3D Unity 6 version of the cart-pole and the learned pendulum |
 
 - **Unity 6 version:** the cart-pole and the learned pendulum in 3D, with the notebook's trained networks and training inside Unity: https://github.com/lossofgenerality/neural-networks-unity
+- **Unity 6 video (4K, YouTube):** https://youtu.be/lIUtEO9m79M
 
 ### [BasicRecurrentLayer](basic-recurrent-layer/)
 
 | File | What it is |
 |---|---|
 | [`BasicRecurrentLayer-Tutorial.nb`](basic-recurrent-layer/BasicRecurrentLayer-Tutorial.nb) | A short tutorial on Wolfram's built-in `BasicRecurrentLayer`: the recurrence, checking the layer by hand, stateful evaluation, and a small sequence classifier |
+| [`BasicRecurrentLayer-Tutorial.ipynb`](basic-recurrent-layer/BasicRecurrentLayer-Tutorial.ipynb) | Python edition of the tutorial, a Jupyter notebook (Python 3.14, PyTorch `nn.RNN`), evaluated |
 | [`BasicRecurrentLayer-FromScratch.nb`](basic-recurrent-layer/BasicRecurrentLayer-FromScratch.nb) | The same layer built from ordinary math functions: the full matrix form of the recurrence, a check against the built-in layer, backpropagation through time derived and checked with `D`, and training by hand-written gradient descent |
 
 ## Using the notebooks
@@ -107,7 +109,8 @@ Open a notebook and choose Kernel → Restart Kernel and Run All Cells.
 ### Notes
 
 - The slider of Figure 2 works only in a running notebook.
-- Random numbers come from NumPy and PyTorch, so the values that depend on random weights (section 5 of the main notebook; Problems 3, 5 and 6 of the exercises) differ slightly from the Wolfram runs, and the text of the Python editions gives the values of the Python run. Everything else agrees with the Wolfram results.
+- Random numbers come from NumPy and PyTorch, so the values that depend on random weights (section 5 of the main notebook; Problems 3, 5 and 6 of the exercises; the weights, data and accuracy of the BasicRecurrentLayer tutorial) differ slightly from the Wolfram runs, and the text of the Python editions gives the values of the Python run. Everything else agrees with the Wolfram results.
+- In the BasicRecurrentLayer tutorial, PyTorch's `nn.RNN` has two bias vectors where Wolfram's layer has one; the notebook fixes the second at 0, so the layer and its parameter count (18) match Wolfram's.
 
 ## License
 

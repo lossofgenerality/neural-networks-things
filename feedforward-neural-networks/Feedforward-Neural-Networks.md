@@ -1,6 +1,6 @@
 # Feedforward Neural Networks: The Algebra and the Computing
 
-> **About this Markdown edition.** Converted from the Wolfram notebook [`Feedforward-Neural-Networks.nb`](Feedforward-Neural-Networks.nb), with every cell run in Wolfram Mathematica 15. Equations are LaTeX; code cells are Wolfram Language and keep their indices (c.N). Every output is the image of the notebook output, in [`figures/`](figures); the animations and Manipulates appear as a single frame, and the videos of the animations are in [`videos/`](videos), together with a recording of the 3D Unity 6 version of the cart-pole and the learned pendulum, [`CCN_wolfram_unity_neural_nets.mp4`](videos/CCN_wolfram_unity_neural_nets.mp4); the Unity project is in [neural-networks-unity](https://github.com/lossofgenerality/neural-networks-unity). It continues [S Shape Functions Theory](../s-shape-functions-theory/S-Shape-Functions-Theory.md).
+> **About this Markdown edition.** Converted from the Wolfram notebook [`Feedforward-Neural-Networks.nb`](Feedforward-Neural-Networks.nb), with every cell run in Wolfram Mathematica 15. Equations are LaTeX; code cells are Wolfram Language and keep their indices (c.N). Every output is the image of the notebook output, in [`figures/`](figures); the animations and Manipulates appear as a single frame, and the videos of the animations are in [`videos/`](videos), together with a recording of the 3D Unity 6 version of the cart-pole and the learned pendulum, [`CCN_wolfram_unity_neural_nets.mp4`](videos/CCN_wolfram_unity_neural_nets.mp4) (in 4K on YouTube: [youtu.be/lIUtEO9m79M](https://youtu.be/lIUtEO9m79M)); the Unity project is in [neural-networks-unity](https://github.com/lossofgenerality/neural-networks-unity). It continues [S Shape Functions Theory](../s-shape-functions-theory/S-Shape-Functions-Theory.md).
 
 *A first network from ordinary functions: one neuron, a layer, a network, backpropagation and training, with AND, OR, XOR, Celsius to Fahrenheit, a stick balanced on a moving cart and a pendulum whose physics is learned*
 
@@ -1388,6 +1388,8 @@ Manipulate[pendView[j, n],
 <img alt="Output of cell c.23" src="figures/out-c.23.png" width="564">
 
 ▶ **Video:** [Pendulum-learning.mp4](videos/Pendulum-learning.mp4), learned pendulums at four stages of training.
+
+▶ **Unity 6 version in 3D:** the cart-pole and the learned pendulum with these trained networks, [in 4K on YouTube](https://youtu.be/lIUtEO9m79M); project: [neural-networks-unity](https://github.com/lossofgenerality/neural-networks-unity).
 
 ## 10. The same with NetChain and NetTrain
 
