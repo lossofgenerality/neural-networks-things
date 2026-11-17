@@ -1,6 +1,6 @@
 # Neural Networks Things · Computational Classnotes
 
-Wolfram Language notebooks on the mathematics of neural networks, from S-shaped activation functions and universal approximation to feedforward networks trained by hand and recurrent layers built from scratch, with Python editions of the S Shape Functions notebooks and the BasicRecurrentLayer tutorial. Each notebook is self-contained: it explains the ideas, states the results, and checks every formula with code you can run.
+Wolfram Language notebooks on the mathematics of neural networks, from S-shaped activation functions and universal approximation to feedforward networks trained by hand and recurrent layers built from scratch, with Python editions of the S Shape Functions notebooks, Feedforward Neural Networks and the BasicRecurrentLayer tutorial. Each notebook is self-contained: it explains the ideas, states the results, and checks every formula with code you can run.
 
 ## Contents
 
@@ -57,6 +57,7 @@ A feedforward network is a chain of simple steps: multiply by a matrix, add a ve
 | [`Feedforward-Neural-Networks.nb`](feedforward-neural-networks/Feedforward-Neural-Networks.nb) | The Wolfram notebook, evaluated (Wolfram 15); animations and Manipulates are shown as one frame until their cells are run |
 | [`Feedforward-Neural-Networks.pdf`](feedforward-neural-networks/Feedforward-Neural-Networks.pdf) | Printed version, A4 |
 | [`Feedforward-Neural-Networks.md`](feedforward-neural-networks/Feedforward-Neural-Networks.md) | Markdown edition with LaTeX equations and the Wolfram outputs |
+| [`Feedforward-Neural-Networks.ipynb`](feedforward-neural-networks/Feedforward-Neural-Networks.ipynb) | Python edition, a Jupyter notebook (Python 3.14; NumPy for the networks, PyTorch for section 10), evaluated; the sliders and play buttons work in a running notebook |
 | [`videos/`](feedforward-neural-networks/videos/) | The animations as MP4 videos, and a recording of the 3D Unity 6 version of the cart-pole and the learned pendulum |
 
 - **Unity 6 version:** the cart-pole and the learned pendulum in 3D, with the notebook's trained networks and training inside Unity: https://github.com/lossofgenerality/neural-networks-unity
@@ -108,8 +109,9 @@ Open a notebook and choose Kernel → Restart Kernel and Run All Cells.
 
 ### Notes
 
-- The slider of Figure 2 works only in a running notebook.
-- Random numbers come from NumPy and PyTorch, so the values that depend on random weights (section 5 of the main notebook; Problems 3, 5 and 6 of the exercises; the weights, data and accuracy of the BasicRecurrentLayer tutorial) differ slightly from the Wolfram runs, and the text of the Python editions gives the values of the Python run. Everything else agrees with the Wolfram results.
+- The slider of Figure 2, and the sliders and play buttons of Feedforward Neural Networks, work only in a running notebook; GitHub shows one frame of each. An animation starts only when its play button is pressed.
+- In Feedforward Neural Networks, cell c.26 can save the animations as MP4 videos; it needs ffmpeg (macOS: `brew install ffmpeg`) and is switched off by default, since the videos are already in `videos/`.
+- Random numbers come from NumPy and PyTorch, so the values that depend on random weights (section 5 of the main notebook; Problems 3, 5 and 6 of the exercises; the trainings of Feedforward Neural Networks; the weights, data and accuracy of the BasicRecurrentLayer tutorial) differ slightly from the Wolfram runs, and the text of the Python editions gives the values of the Python run. Everything else agrees with the Wolfram results.
 - In the BasicRecurrentLayer tutorial, PyTorch's `nn.RNN` has two bias vectors where Wolfram's layer has one; the notebook fixes the second at 0, so the layer and its parameter count (18) match Wolfram's.
 
 ## License
