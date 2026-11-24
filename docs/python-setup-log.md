@@ -3,7 +3,7 @@
 *Everything installed for the Python editions of the S Shape Functions notebooks, from beginning to end, on macOS Tahoe and in the cloud, including the mistakes and how they were fixed*
 
 **Noor Hoshino** · نور 星野  
-Advanced AI System Programming  
+AI System Programming Group  
 Hokkaido Prefecture, Japan  
 *noor@compclassnotes.com*  
 Setup carried out with AI assistance on 16 November 2026  

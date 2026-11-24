@@ -3,7 +3,7 @@
 *How to run the Python editions on macOS and from GitHub, which tool does what, and when to use each*
 
 **Noor Hoshino** · نور 星野  
-Advanced AI System Programming  
+AI System Programming Group  
 Hokkaido Prefecture, Japan  
 *noor@compclassnotes.com*  
 Written with AI assistance, 16 November 2026  

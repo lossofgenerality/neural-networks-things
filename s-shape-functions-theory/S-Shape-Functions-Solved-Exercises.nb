@@ -91,7 +91,7 @@ l9q2
  CellMargins->{{Inherited, Inherited}, {0, 
    0}},ExpressionUUID->"640c3e04-83ab-40e2-934a-47973467f46e"],
 
-Cell["Advanced AI System Programming", "Author",
+Cell["AI System Programming Group", "Author",
  CellMargins->{{Inherited, Inherited}, {0, 0}},
  FontSize->12,ExpressionUUID->"a794b06d-5f00-43c0-ba4d-c20b532649bc"],
 
